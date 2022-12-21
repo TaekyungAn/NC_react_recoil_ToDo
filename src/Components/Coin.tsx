@@ -121,11 +121,16 @@ interface IPriceData {
     };
   };
 }
+interface RouteState {
+  state: {
+    name: string;
+  };
+}
 
 function Coin() {
   const [loading, setLoading] = useState(true);
   const { coinId } = useParams();
-  const { state } = useLocation();
+  const { state } = useLocation() as RouteState;
   const [info, setInfo] = useState<IInfoData>();
   const [priceInfo, setPriceInfo] = useState<IPriceData>();
   const priceMatch = useMatch("/:coinId/price");
@@ -156,7 +161,9 @@ function Coin() {
   return (
     <Container>
       <Header>
-        <Title>{state || "Loading..."}</Title>
+        <Title>
+          {state?.name ? state.name : loading ? "loading..." : info?.name}
+        </Title>
       </Header>
       {loading ? (
         <Loader>Loading...</Loader>
