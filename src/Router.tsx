@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import Coin from "./Coin";
-import Coins from "./Coins";
+import Chart from "./Components/Chart";
+import Coin from "./Components/Coin";
+import Coins from "./Components/Coins";
+import Price from "./Components/Price";
 import Root from "./Root";
 
 const router = createBrowserRouter([
@@ -15,6 +17,16 @@ const router = createBrowserRouter([
       {
         path: ":coinId",
         element: <Coin />,
+        children: [
+          {
+            path: "chart",
+            element: <Chart />,
+          },
+          {
+            path: "price",
+            element: <Price />,
+          },
+        ],
       },
     ],
   },
