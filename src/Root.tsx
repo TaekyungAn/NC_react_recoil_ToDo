@@ -78,10 +78,9 @@ function Root() {
   return (
     <>
       <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-        <button onClick={toggleDark}>Toggle Mode</button>
         <GlobalStyle />
         <HelmetProvider>
-          <Outlet />
+          <Outlet toggleDark={toggleDark} />
         </HelmetProvider>
         <ReactQueryDevtools initialIsOpen={true} />
       </ThemeProvider>

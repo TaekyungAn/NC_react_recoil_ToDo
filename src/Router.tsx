@@ -5,6 +5,10 @@ import Coins from "./Components/Coins";
 import Price from "./Components/Price";
 import Root from "./Root";
 
+interface IRouterProps {
+  toggleDark: () => void;
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -12,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Coins />,
+        element: <Coins toggleDark={toggleDark} />,
       },
       {
         path: ":coinId",
@@ -32,3 +36,6 @@ const router = createBrowserRouter([
   },
 ]);
 export default router;
+function toggleDark(): void {
+  throw new Error("Function not implemented.");
+}
