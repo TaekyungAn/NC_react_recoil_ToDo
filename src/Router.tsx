@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <Coins toggleDark={toggleDark} />,
+        element: <Coins />,
       },
       {
         path: ":coinId",

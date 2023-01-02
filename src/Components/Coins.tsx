@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
 
@@ -95,7 +95,7 @@ interface ICoinsProps {
   toggleDark: () => void;
 }
 
-function Coins({ toggleDark }: ICoinsProps) {
+function Coins() {
   const { isLoading, data } = useQuery<ICoin[]>(["allCoins"], fetchCoins);
 
   // const [coins, setCoins] = useState<ICoin[]>([]);
@@ -121,6 +121,7 @@ function Coins({ toggleDark }: ICoinsProps) {
   //   useEffect(() => {
   //     getCoins();
   //   });
+  const { toggleDark } = useOutletContext<ICoinsProps>();
 
   return (
     <Container>

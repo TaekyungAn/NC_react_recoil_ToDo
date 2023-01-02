@@ -75,12 +75,13 @@ function Root() {
   const toggleDark = () => {
     setIsDark((current) => !current);
   };
+  // https://reactrouter.com/en/6.4.4/hooks/use-outlet-context#useoutletcontext
   return (
     <>
       <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
         <GlobalStyle />
         <HelmetProvider>
-          <Outlet toggleDark={toggleDark} />
+          <Outlet context={{ toggleDark }} />
         </HelmetProvider>
         <ReactQueryDevtools initialIsOpen={true} />
       </ThemeProvider>
