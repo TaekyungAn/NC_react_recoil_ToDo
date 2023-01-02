@@ -23,13 +23,24 @@ import { useForm } from "react-hook-form";
 //     </div>
 //   );
 // }
-
+type IForm = {
+  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  password1: string;
+};
 function ToDoList() {
-  const { register, handleSubmit, formState } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IForm>({ defaultValues: { email: "@naver.com" } });
   const onValid = (data: any) => {
     console.log(data);
   };
-  console.log(formState.errors);
+  console.log(errors);
 
   return (
     <div>
@@ -38,33 +49,54 @@ function ToDoList() {
         onSubmit={handleSubmit(onValid)}
       >
         {/* 자바스크립트에서 validation(required)하면 html에서 해주는 것보다 보안이 잘 됨 */}
-        <input {...register("Email", { required: true })} placeholder="Email" />
         <input
-          {...register("FirstName", { required: true })}
-          placeholder="FirstName"
+          {...register("email", {
+            required: "email is reqired",
+            pattern: {
+              value: /^[A-Za-z0-9._%+-]+@naver.com$/,
+              message: "Only naver.com emails allowed",
+            },
+          })}
+          placeholder="email"
         />
+        <span>{errors?.email?.message}</span>
         <input
-          {...register("LastName", { required: true })}
-          placeholder="LastName"
+          {...register("firstName", { required: "Write here" })}
+          placeholder="firstName"
         />
+        <span>{errors?.firstName?.message}</span>
         <input
-          {...register("username", { required: true, minLength: 10 })}
-          placeholder="Username"
+          {...register("lastName", { required: "Write here" })}
+          placeholder="lastName"
         />
+        <span>{errors?.lastName?.message}</span>
         <input
-          {...register("Password", { required: true, minLength: 5 })}
-          placeholder="Password"
+          {...register("username", { required: "Write here", minLength: 10 })}
+          placeholder="username"
         />
+        <span>{errors?.username?.message}</span>
         <input
-          {...register("Password1", {
+          {...register("password", {
+            required: "Write here",
+            minLength: {
+              value: 5,
+              message: "Your password is too short.",
+            },
+          })}
+          placeholder="password"
+        />
+        <span>{errors?.password?.message}</span>
+        <input
+          {...register("password1", {
             required: "Password is required",
             minLength: {
               value: 5,
               message: "Your password is too short.",
             },
           })}
-          placeholder="Password1"
+          placeholder="password1"
         />
+        <span>{errors?.password1?.message}</span>
         <button>Add</button>
       </form>
     </div>
