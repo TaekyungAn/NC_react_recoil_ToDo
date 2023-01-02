@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useOutletContext } from "react-router-dom";
 import { fetcherCoinHistory } from "../api";
 import ApexChart from "react-apexcharts";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "../atoms";
 
 interface ChartProps {
   coinId: string;
@@ -26,6 +28,7 @@ function Chart() {
     // { refetchInterval: 1000 }
   );
   console.log(coinId);
+  const isDark = useRecoilValue(isDarkAtom);
 
   return (
     <div>
@@ -45,7 +48,7 @@ function Chart() {
             },
           ]}
           options={{
-            theme: { mode: "dark" },
+            theme: { mode: isDark ? "dark" : "light" },
             chart: {
               height: 300,
               width: 500,
