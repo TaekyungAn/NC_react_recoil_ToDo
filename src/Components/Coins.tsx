@@ -2,8 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useOutletContext } from "react-router-dom";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
+import { isDarkAtom } from "../atoms";
 
 const Container = styled.div`
   padding: 0px 20px;
@@ -92,31 +94,10 @@ interface ICoin {
 }
 
 function Coins() {
+  // 여기에서 atom의 value를 수정하는 방법
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  const toggleDarkAtom = () => setDarkAtom((prev) => !prev);
   const { isLoading, data } = useQuery<ICoin[]>(["allCoins"], fetchCoins);
-
-  // const [coins, setCoins] = useState<ICoin[]>([]);
-  // const [loading, setLoading] = useState(true);
-
-  // React-query 사용 전, 상태함수로 관리할때 (async/await사용)
-  // useEffect(() => {
-  //   (async () => {
-  //     const response = await fetch("https://api.coinpaprika.com/v1/coins");
-  //     const json = await response.json();
-  //     setCoins(json.slice(0, 100));
-  //     setLoading(false);
-  //   })();
-  // }, []);
-
-  // 참고: axios로 사용하는 방법
-  //   const getCoins = async () => {
-  //     const res = await axios("https://api.coinpaprika.com/v1/coins");
-  //     setCoins(res.data.slice(0, 100));
-  //     setLoading(false);
-  //   };
-
-  //   useEffect(() => {
-  //     getCoins();
-  //   });
 
   return (
     <Container>
@@ -125,7 +106,7 @@ function Coins() {
       </Helmet>
       <Header>
         <Title>Coins</Title>
-        <button>Toggle Mode</button>
+        <button onClick={toggleDarkAtom}>Toggle Mode</button>
       </Header>
       <CoinList>
         {isLoading ? (
