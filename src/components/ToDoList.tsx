@@ -9,7 +9,6 @@ function ToDoList() {
   // 따로 사용 시 아래처럼 사용
   const toDos = useRecoilValue(toDoState);
   // const modFn = useRecoilState(toDoState);
-
   console.log(toDos);
 
   return (
