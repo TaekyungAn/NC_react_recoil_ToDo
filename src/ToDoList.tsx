@@ -8,6 +8,7 @@ interface IFrom {
   username: string;
   password: number;
   password1: number;
+  extraError?: string;
 }
 
 function ToDoList() {
@@ -15,14 +16,23 @@ function ToDoList() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm<IFrom>({
     defaultValues: {
       email: "@naver.com",
     },
   });
   // 데이터가 유효하지 않으면 error를 나타내고, 모든 validation을 마치면 호출
-  const onValid = (data: any) => {
-    console.log(data);
+  const onValid = (data: IFrom) => {
+    if (data.password !== data.password1) {
+      setError(
+        "password1",
+        { message: "password are not the same" },
+        { shouldFocus: true }
+      );
+    }
+    // 백엔드 통신이 안된다고 가정했을때
+    // setError("extraError", { message: "Server is offline" });
   };
   console.log(errors);
 
@@ -44,7 +54,15 @@ function ToDoList() {
         />
         <span>{errors?.email?.message}</span>
         <input
-          {...register("firstname", { required: "First Name is required" })}
+          {...register("firstname", {
+            required: "First Name is required",
+            validate: {
+              noNico: (value) =>
+                value.includes("nico") ? "no nicos allowed" : true,
+              noNick: (value) =>
+                value.includes("nick") ? "no nick allowed" : true,
+            },
+          })}
           placeholder="First Name"
         />
         <span>{errors?.firstname?.message}</span>
@@ -68,7 +86,13 @@ function ToDoList() {
         <span>{errors?.username?.message}</span>
 
         <input
-          {...register("password", { required: "password is required" })}
+          {...register("password", {
+            required: "password is required",
+            minLength: {
+              value: 5,
+              message: "Your password is too short",
+            },
+          })}
           placeholder="Password"
         />
         <span>{errors?.password?.message}</span>
@@ -80,6 +104,7 @@ function ToDoList() {
         <span>{errors?.password1?.message}</span>
 
         <button>Add</button>
+        <span>{errors?.extraError?.message}</span>
       </form>
     </div>
   );
