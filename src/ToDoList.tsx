@@ -6,8 +6,8 @@ interface IFrom {
   firstname: string;
   lastname: string;
   username: string;
-  password: number;
-  password1: number;
+  password: string;
+  password1: string;
   extraError?: string;
 }
 
@@ -17,6 +17,7 @@ function ToDoList() {
     handleSubmit,
     formState: { errors },
     setError,
+    setValue,
   } = useForm<IFrom>({
     defaultValues: {
       email: "@naver.com",
@@ -31,6 +32,12 @@ function ToDoList() {
         { shouldFocus: true }
       );
     }
+    setValue("email", "");
+    setValue("firstname", "");
+    setValue("lastname", "");
+    setValue("password", "");
+    setValue("password1", "");
+    setValue("username", "");
     // 백엔드 통신이 안된다고 가정했을때
     // setError("extraError", { message: "Server is offline" });
   };
