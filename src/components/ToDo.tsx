@@ -18,10 +18,12 @@ function ToDo({ text, category, id }: IToDo) {
       // 기존 카테고리(객체)
       const oldToDo = oldToDos[targetIndex];
       // 바뀐 카테고리(객체)
-      const newToDo = { text, id, category: name };
-
-      console.log(oldToDo, newToDo);
-      return oldToDos;
+      const newToDo = { text, id, category: name as any };
+      return [
+        ...oldToDos.slice(0, targetIndex),
+        newToDo,
+        ...oldToDos.slice(targetIndex + 1),
+      ];
     });
   };
   return (
