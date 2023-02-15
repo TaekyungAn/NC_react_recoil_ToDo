@@ -7,11 +7,17 @@ function ToDo({ text, category, id }: IToDo) {
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     // console.log("i wanna go to", event.currentTarget.name);
     const {
+      // 눌리는 버튼 나타내기
       currentTarget: { name },
     } = event;
+
+    // atom의 value값을 바꿀 수 있게 해주는 함수
     setToDos((oldToDos) => {
+      // 작성된 todo리스트 중에서 클릭되는 것 인덱스 값 불러오기
       const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
+      // 기존 카테고리(객체)
       const oldToDo = oldToDos[targetIndex];
+      // 바뀐 카테고리(객체)
       const newToDo = { text, id, category: name };
 
       console.log(oldToDo, newToDo);
