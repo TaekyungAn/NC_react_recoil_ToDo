@@ -13,8 +13,8 @@ function Category() {
       <option value={Categories.TO_DO}>To Do</option>
       <option value={Categories.DOING}>Doing</option>
       <option value={Categories.DONE}>Done</option>
-      {newCategories.map((button) => (
-        <option value={button + ""}>{button + ""}</option>
+      {newCategories.map((newcategories) => (
+        <option value={newcategories + ""}>{newcategories + ""}</option>
       ))}{" "}
     </select>
   );

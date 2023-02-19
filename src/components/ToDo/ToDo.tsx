@@ -44,3 +44,6 @@ function ToDo({ text, category, id }: IToDo) {
   );
 }
 export default ToDo;
+
+// 참고
+// https://github.com/ohsoomansour/CodeChallenge2/blob/main/src/components/ToDo.tsx
