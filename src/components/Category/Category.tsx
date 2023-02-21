@@ -15,7 +15,7 @@ function Category() {
       <option value={Categories.DONE}>Done</option>
       {newCategories.map((newcategories) => (
         <option value={newcategories + ""}>{newcategories + ""}</option>
-      ))}{" "}
+      ))}
     </select>
   );
 }

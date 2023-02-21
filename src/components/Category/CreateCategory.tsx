@@ -17,8 +17,6 @@ function CreateCategory() {
     });
     setValue("newCategory", "");
   };
-  console.log(newCatState);
-
   return (
     <form onSubmit={handleSubmit(handleValid)}>
       <input {...register("newCategory")} placeholder="New category" />
