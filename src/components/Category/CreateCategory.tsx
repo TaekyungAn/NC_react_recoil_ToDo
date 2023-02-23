@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useSetRecoilState } from "recoil";
-import { categoryState, newCatState } from "../../atom";
+import { categoryState } from "../../atom";
 
 interface IForm {
   newCategory: string;
@@ -9,17 +9,28 @@ interface IForm {
 function CreateCategory() {
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const setCurrentCategory = useSetRecoilState(categoryState);
-  const setNewCategory = useSetRecoilState(newCatState);
   const handleValid = ({ newCategory }: IForm) => {
-    setCurrentCategory(newCategory as any);
-    setNewCategory((prev) => {
-      return [...prev, newCategory] as any;
-    });
-    setValue("newCategory", "");
+    if (newCategory.length > 0) {
+      setCurrentCategory(newCategory as any);
+      // setNewCategory((prev) => {
+      //   return [...prev, newCategory] as any;
+      // });
+      setValue("newCategory", "");
+    } else {
+      alert("1글자 이상 입력하세요");
+    }
   };
   return (
     <form onSubmit={handleSubmit(handleValid)}>
-      <input {...register("newCategory")} placeholder="New category" />
+      <input
+        {...register("newCategory", {
+          minLength: {
+            value: 1,
+            message: "more than a letter",
+          },
+        })}
+        placeholder="New category"
+      />
       <button>Add</button>
     </form>
   );

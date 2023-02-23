@@ -1,9 +1,8 @@
 import React from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { Categories, IToDo, newCatState, toDoState } from "../../atom";
+import { IToDo, toDoState } from "../../atom";
 
 function ToDo({ text, category, id }: IToDo) {
-  const newCategories = useRecoilValue(newCatState);
   const setToDos = useSetRecoilState(toDoState);
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     // console.log("i wanna go to", event.currentTarget.name);
@@ -39,18 +38,18 @@ function ToDo({ text, category, id }: IToDo) {
     });
   };
 
-  const categories = [...Object.keys(Categories), ...newCategories];
+  // const categories = [...Object.keys(Categories), ...newCategories];
   return (
     <li>
       {text}
-      {categories.map(
+      {/* {categories.map(
         (key: any, index: number) =>
           category !== key && (
             <button key={`button-${index}`} name={key} onClick={onClick}>
               {key}
             </button>
           )
-      )}
+      )} */}
       <button onClick={deleteTodo}>delete</button>
     </li>
   );

@@ -1,4 +1,6 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+import BottomBar from "./components/SideBar/BottomBar";
+import LeftBar from "./components/SideBar/LeftBar";
 import ToDoList from "./components/ToDo/ToDoList";
 
 const GlobalStyle = createGlobalStyle`
@@ -56,8 +58,10 @@ table {
 }
 body{
   font-family: 'Source Sans Pro', sans-serif;
+  /* background: url(${(props) => props.theme.bgImg}) no-repeat;
+  background-size: cover; */
   background-color: ${(props) => props.theme.bgColor};
-  color: ${(props) => props.theme.textColor};;
+  color: ${(props) => props.theme.textColor};
 }
 a{
   text-decoration: none;
@@ -65,13 +69,33 @@ a{
 }
 `;
 
-function Root() {
+const Middle = styled.div`
+  display: flex;
+  width: 70%;
+  height: 70%;
+  background-color: darkred;
+`;
+
+const AppWrapper = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+function App() {
   return (
-    <>
+    <AppWrapper>
       <GlobalStyle />
-      <ToDoList />
-    </>
+      <Middle>
+        <LeftBar />
+        <ToDoList />
+      </Middle>
+      <BottomBar />
+    </AppWrapper>
   );
 }
 
-export default Root;
+export default App;
