@@ -1,14 +1,11 @@
 import { atom, selector } from "recoil";
 import { recoilPersist } from "recoil-persist";
-
 // 로컬스토리지 저장
 const { persistAtom } = recoilPersist({
   key: "todoLocal",
   storage: localStorage,
 });
-
 export let defaultCategories: string[] = ["toDo", "Doing", "Done"];
-
 export interface IToDo {
   text: string;
   id: number;
@@ -36,7 +33,6 @@ export const toDoState = atom<IToDo[]>({
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
-
 // 카테고리에 맞는 리스트만 필터함 => ToDoList에
 export const toDoSelector = selector({
   key: "toDoSelector",

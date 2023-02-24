@@ -18,17 +18,24 @@ function Category() {
       (oldCategory) => oldCategory !== defaultCategory
     );
     setNewCategory(removedCategory);
+    setDefaultCategory(newCategory[1]);
   };
+
+  const currentState = defaultCategory;
   return (
     <CategoryWrapper>
-      <div>{defaultCategory}</div>
+      <div>
+        {defaultCategory === undefined
+          ? "카테고리를 생성해 주세요"
+          : defaultCategory}
+      </div>
+      <button onClick={deleteCategory}>X</button>
       <div>
         {newCategory.map((newlist) => (
-          <div>
+          <div key={newlist}>
             <button onClick={onClick} value={newlist}>
               {newlist}
             </button>
-            <button onClick={deleteCategory}>X</button>
           </div>
         ))}
       </div>
