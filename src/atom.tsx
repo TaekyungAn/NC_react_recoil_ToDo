@@ -15,16 +15,18 @@ export interface IToDo {
   category: string;
 }
 
-// 기존 카테고리
-export const categoryState = atom({
+// 기본 카테고리
+export const categoryState = atom<string>({
   key: "category",
   default: defaultCategories[0],
 });
 
 // 새로 입력하는 카테고리
-const newCategoryState = atom({
+export const newCategoryState = atom<string[]>({
   key: "newCategory",
-  default: [],
+  default: JSON.parse(
+    localStorage.getItem("categories") ?? JSON.stringify(defaultCategories)
+  ),
   effects_UNSTABLE: [persistAtom],
 });
 

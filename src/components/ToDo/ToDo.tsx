@@ -1,9 +1,13 @@
 import React from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { IToDo, toDoState } from "../../atom";
+import { categoryState, IToDo, newCategoryState, toDoState } from "../../atom";
 
 function ToDo({ text, category, id }: IToDo) {
   const setToDos = useSetRecoilState(toDoState);
+  const categories = useRecoilValue(newCategoryState);
+  const defaultCategory = useRecoilValue(categoryState);
+  console.log(categories);
+
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     // console.log("i wanna go to", event.currentTarget.name);
     const {
@@ -15,8 +19,6 @@ function ToDo({ text, category, id }: IToDo) {
     setToDos((oldToDos) => {
       // 작성된 todo리스트 중에서 클릭되는 것 인덱스 값 불러오기
       const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
-      // 기존 카테고리(객체)
-      const oldToDo = oldToDos[targetIndex];
       // 바뀐 카테고리(객체)
       const newToDo = { text, id, category: name as any };
       return [
@@ -38,18 +40,22 @@ function ToDo({ text, category, id }: IToDo) {
     });
   };
 
-  // const categories = [...Object.keys(Categories), ...newCategories];
   return (
     <li>
       {text}
-      {/* {categories.map(
-        (key: any, index: number) =>
-          category !== key && (
-            <button key={`button-${index}`} name={key} onClick={onClick}>
-              {key}
+      {Object.values(categories).map(
+        (availableCategory) =>
+          availableCategory !== defaultCategory && (
+            <button
+              disabled={availableCategory === category}
+              key={availableCategory}
+              onClick={onClick}
+              name={availableCategory}
+            >
+              {availableCategory}
             </button>
           )
-      )} */}
+      )}
       <button onClick={deleteTodo}>delete</button>
     </li>
   );

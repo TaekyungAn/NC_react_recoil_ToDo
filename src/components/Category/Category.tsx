@@ -1,28 +1,38 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { categoryState } from "../../atom";
+import { categoryState, newCategoryState } from "../../atom";
 
-const Menus = styled.div`
-  display: flex;
-`;
-
-const Menu = styled.div`
-  margin-right: 10px;
-  background-color: black;
-  cursor: pointer;
-`;
+const CategoryWrapper = styled.div``;
 
 function Category() {
-  const [myCategory, setMyCategory] = useRecoilState(categoryState);
+  const [defaultCategory, setDefaultCategory] = useRecoilState(categoryState);
+  const [newCategory, setNewCategory] = useRecoilState(newCategoryState);
 
-  const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
-    setMyCategory(event.currentTarget.value as any);
+  const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setDefaultCategory(event.currentTarget.value as any);
   };
 
   const deleteCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+    const removedCategory = newCategory.filter(
+      (oldCategory) => oldCategory !== defaultCategory
+    );
+    setNewCategory(removedCategory);
   };
-  return <></>;
+  return (
+    <CategoryWrapper>
+      <div>{defaultCategory}</div>
+      <div>
+        {newCategory.map((newlist) => (
+          <div>
+            <button onClick={onClick} value={newlist}>
+              {newlist}
+            </button>
+            <button onClick={deleteCategory}>X</button>
+          </div>
+        ))}
+      </div>
+    </CategoryWrapper>
+  );
 }
 export default Category;
