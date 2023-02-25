@@ -7,6 +7,6 @@ const Box = styled.div`
 `;
 
 function LeftBar() {
-  return <Box />;
+  return <Box>Left Bar</Box>;
 }
 export default LeftBar;

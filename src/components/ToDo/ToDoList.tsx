@@ -15,6 +15,13 @@ const ToDoListWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  > div {
+    height: 85%;
+    width: 85%;
+
+    background-color: darkblue;
+  }
 `;
 
 function ToDoList() {
@@ -23,8 +30,6 @@ function ToDoList() {
   return (
     <ToDoListWrapper>
       <div>
-        <h1>To Dos</h1>
-        <hr />
         <Category />
         <CreateCategory />
         <CreateToDo />

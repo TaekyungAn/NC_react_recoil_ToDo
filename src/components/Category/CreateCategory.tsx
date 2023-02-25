@@ -1,23 +1,42 @@
 import { useForm } from "react-hook-form";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { categoryState, newCategoryState } from "../../atom";
 
 interface IForm {
-  newCategory: string;
+  inputCategory: string;
 }
 
 function CreateCategory() {
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const setCurrentCategory = useSetRecoilState(categoryState);
-  const setNewCategory = useSetRecoilState(newCategoryState);
+  const [newCategory, setNewCategory] = useRecoilState(newCategoryState);
 
-  const handleValid = ({ newCategory }: IForm) => {
-    if (newCategory.length > 0) {
-      setCurrentCategory(newCategory as any);
-      setNewCategory((prev) => {
-        return [...prev, newCategory] as any;
-      });
-      setValue("newCategory", "");
+  // const handleValid = ({ newCategory }: IForm) => {
+  //   if (newCategory.length > 0) {
+  //     setCurrentCategory(newCategory as any);
+  //     setNewCategory((prev) => {
+  //       if (newCategory.includes(newCategory)) {
+  //         alert("같은 카테고리가 존재합니다");
+  //         return;
+  //       } else {
+  //         return [...prev, newCategory] as any;
+  //       }
+  //     });
+  //     setValue("newCategory", "");
+  //   } else {
+  //     alert("1글자 이상 입력하세요");
+  //   }
+  // };
+  const handleValid = ({ inputCategory }: IForm) => {
+    if (inputCategory && inputCategory.length > 0) {
+      if (newCategory.includes(inputCategory)) {
+        alert("같은 카테고리가 존재합니다.");
+        setValue("inputCategory", "");
+        return;
+      }
+      setNewCategory([...newCategory, inputCategory]);
+      setCurrentCategory(inputCategory);
+      setValue("inputCategory", "");
     } else {
       alert("1글자 이상 입력하세요");
     }
@@ -25,7 +44,7 @@ function CreateCategory() {
   return (
     <form onSubmit={handleSubmit(handleValid)}>
       <input
-        {...register("newCategory", {
+        {...register("inputCategory", {
           minLength: {
             value: 1,
             message: "more than a letter",

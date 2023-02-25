@@ -7,6 +7,6 @@ const Box = styled.div`
 `;
 
 function BottomBar() {
-  return <Box />;
+  return <Box>Bottom Bar</Box>;
 }
 export default BottomBar;

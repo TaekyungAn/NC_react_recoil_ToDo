@@ -4,6 +4,28 @@ import styled from "styled-components";
 import { categoryState, newCategoryState } from "../../atom";
 
 const CategoryWrapper = styled.div``;
+const Title = styled.div`
+  margin: 0px 15px;
+  display: flex;
+
+  > h2 {
+    font-size: 2.5rem;
+  }
+  > div {
+  }
+`;
+const CategoryList = styled.div`
+  margin: 0px 15px;
+  display: flex;
+  > button {
+    border: 0;
+    outline: 0;
+    padding: 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+`;
 
 function Category() {
   const [defaultCategory, setDefaultCategory] = useRecoilState(categoryState);
@@ -18,27 +40,29 @@ function Category() {
       (oldCategory) => oldCategory !== defaultCategory
     );
     setNewCategory(removedCategory);
-    setDefaultCategory(newCategory[1]);
+    setDefaultCategory(removedCategory[0]);
+    console.log(removedCategory);
   };
 
   const currentState = defaultCategory;
   return (
     <CategoryWrapper>
-      <div>
-        {defaultCategory === undefined
-          ? "카테고리를 생성해 주세요"
-          : defaultCategory}
-      </div>
-      <button onClick={deleteCategory}>X</button>
-      <div>
+      <Title>
+        <h2>
+          {defaultCategory === undefined
+            ? "카테고리를 생성해 주세요"
+            : defaultCategory}
+        </h2>
+        <button onClick={deleteCategory}>X</button>
+      </Title>
+      <hr />
+      <CategoryList>
         {newCategory.map((newlist) => (
-          <div key={newlist}>
-            <button onClick={onClick} value={newlist}>
-              {newlist}
-            </button>
-          </div>
+          <button key={newlist} onClick={onClick} value={newlist}>
+            {newlist}
+          </button>
         ))}
-      </div>
+      </CategoryList>
     </CategoryWrapper>
   );
 }
