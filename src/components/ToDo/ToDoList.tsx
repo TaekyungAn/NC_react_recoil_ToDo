@@ -20,7 +20,7 @@ const ToDoListWrapper = styled.div`
     height: 85%;
     width: 85%;
 
-    background-color: darkblue;
+    background-color: white;
   }
 `;
 

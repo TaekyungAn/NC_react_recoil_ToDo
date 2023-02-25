@@ -1,5 +1,5 @@
 import React from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { categoryState, newCategoryState } from "../../atom";
 
@@ -11,12 +11,23 @@ const Title = styled.div`
   > h2 {
     font-size: 2.5rem;
   }
-  > div {
+  > button {
+    border: 0;
+    outline: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    padding: 0 10px;
+    color: white;
+    cursor: pointer;
   }
 `;
 const CategoryList = styled.div`
-  margin: 0px 15px;
+  margin: 20px 15px;
   display: flex;
+
   > button {
     border: 0;
     outline: 0;
@@ -24,6 +35,9 @@ const CategoryList = styled.div`
     border-radius: 5px;
     margin-right: 5px;
     cursor: pointer;
+    :focus {
+      background-color: #dd4814;
+    }
   }
 `;
 
@@ -32,19 +46,20 @@ function Category() {
   const [newCategory, setNewCategory] = useRecoilState(newCategoryState);
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setDefaultCategory(event.currentTarget.value as any);
+    setDefaultCategory(event.currentTarget.value);
+    console.log(event.currentTarget.value);
   };
 
   const deleteCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const removedCategory = newCategory.filter(
-      (oldCategory) => oldCategory !== defaultCategory
-    );
-    setNewCategory(removedCategory);
-    setDefaultCategory(removedCategory[0]);
-    console.log(removedCategory);
+    if (window.confirm("카테고리를 지우시겠습니까?")) {
+      const removedCategory = newCategory.filter(
+        (oldCategory) => oldCategory !== defaultCategory
+      );
+      setNewCategory(removedCategory);
+      setDefaultCategory(removedCategory[0]);
+    }
   };
 
-  const currentState = defaultCategory;
   return (
     <CategoryWrapper>
       <Title>
@@ -53,12 +68,17 @@ function Category() {
             ? "카테고리를 생성해 주세요"
             : defaultCategory}
         </h2>
-        <button onClick={deleteCategory}>X</button>
+        <button onClick={deleteCategory}>x</button>
       </Title>
       <hr />
       <CategoryList>
         {newCategory.map((newlist) => (
-          <button key={newlist} onClick={onClick} value={newlist}>
+          <button
+            className="currentBtn"
+            key={newlist}
+            onClick={onClick}
+            value={newlist}
+          >
             {newlist}
           </button>
         ))}

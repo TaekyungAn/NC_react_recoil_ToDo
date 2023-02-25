@@ -73,7 +73,10 @@ const Middle = styled.div`
   display: flex;
   width: 70%;
   height: 70%;
-  background-color: darkred;
+  background-color: white;
+  border-radius: 20px;
+
+  margin-bottom: 10px;
 `;
 
 const AppWrapper = styled.div`

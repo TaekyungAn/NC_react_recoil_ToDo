@@ -31,13 +31,15 @@ function ToDo({ text, category, id }: IToDo) {
   };
 
   const deleteTodo = () => {
-    setToDos((oldToDos) => {
-      const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
-      return [
-        ...oldToDos.slice(0, targetIndex),
-        ...oldToDos.slice(targetIndex + 1),
-      ];
-    });
+    if (window.confirm(`${defaultCategory}목록에서 제거하시겠습니까?`)) {
+      setToDos((oldToDos) => {
+        const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
+        return [
+          ...oldToDos.slice(0, targetIndex),
+          ...oldToDos.slice(targetIndex + 1),
+        ];
+      });
+    }
   };
 
   return (

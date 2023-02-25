@@ -3,7 +3,10 @@ import styled from "styled-components";
 const Box = styled.div`
   width: 70%;
   height: 150px;
-  background-color: blue;
+  border-radius: 20px;
+  background-color: white;
+  padding: 10px;
+  color: black;
 `;
 
 function BottomBar() {
