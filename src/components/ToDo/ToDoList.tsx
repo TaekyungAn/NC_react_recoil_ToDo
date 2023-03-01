@@ -19,8 +19,6 @@ const ToDoListWrapper = styled.div`
   > div {
     height: 85%;
     width: 85%;
-
-    background-color: white;
   }
 `;
 

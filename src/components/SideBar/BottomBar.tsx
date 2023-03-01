@@ -4,9 +4,9 @@ const Box = styled.div`
   width: 70%;
   height: 150px;
   border-radius: 20px;
-  background-color: white;
+  background-color: ${(props) => props.theme.boxColor};
   padding: 10px;
-  color: black;
+  color: ${(props) => props.theme.textColor};
 `;
 
 function BottomBar() {

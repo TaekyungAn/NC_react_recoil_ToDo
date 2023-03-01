@@ -2,6 +2,10 @@ import styled, { createGlobalStyle } from "styled-components";
 import BottomBar from "./components/SideBar/BottomBar";
 import LeftBar from "./components/SideBar/LeftBar";
 import ToDoList from "./components/ToDo/ToDoList";
+import { ThemeProvider } from "styled-components";
+import { darkTheme, lightTheme } from "./theme";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { isDarkAtom } from "./atom";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -73,7 +77,7 @@ const Middle = styled.div`
   display: flex;
   width: 70%;
   height: 70%;
-  background-color: white;
+  background-color: ${(props) => props.theme.boxColor};
   border-radius: 20px;
 
   margin-bottom: 10px;
@@ -89,15 +93,20 @@ const AppWrapper = styled.div`
 `;
 
 function App() {
+  const [isDark, setIsDark] = useRecoilState(isDarkAtom);
+  const toggleDarkAtom = () => setIsDark((prev) => !prev);
   return (
-    <AppWrapper>
-      <GlobalStyle />
-      <Middle>
-        <LeftBar />
-        <ToDoList />
-      </Middle>
-      <BottomBar />
-    </AppWrapper>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+      <AppWrapper>
+        <GlobalStyle />
+        <Middle>
+          <LeftBar />
+          <ToDoList />
+        </Middle>
+        <BottomBar />
+        <button onClick={toggleDarkAtom}>Toggle</button>
+      </AppWrapper>
+    </ThemeProvider>
   );
 }
 

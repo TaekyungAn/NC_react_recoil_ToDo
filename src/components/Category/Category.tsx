@@ -20,7 +20,7 @@ const Title = styled.div`
     align-items: center;
     background-color: transparent;
     padding: 0 10px;
-    color: white;
+    color: ${(props) => props.theme.btnColor};
     cursor: pointer;
   }
 `;
@@ -36,7 +36,7 @@ const CategoryList = styled.div`
     margin-right: 5px;
     cursor: pointer;
     :focus {
-      background-color: #dd4814;
+      background-color: ${(props) => props.theme.btnColor};
     }
   }
 `;
@@ -48,6 +48,11 @@ function Category() {
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setDefaultCategory(event.currentTarget.value);
     console.log(event.currentTarget.value);
+    console.log(defaultCategory);
+
+    if (defaultCategory === event.currentTarget.value) {
+      console.log("true");
+    }
   };
 
   const deleteCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -74,7 +79,7 @@ function Category() {
       <CategoryList>
         {newCategory.map((newlist) => (
           <button
-            className="currentBtn"
+            className={newlist}
             key={newlist}
             onClick={onClick}
             value={newlist}

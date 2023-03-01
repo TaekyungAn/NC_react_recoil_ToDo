@@ -6,7 +6,6 @@ function ToDo({ text, category, id }: IToDo) {
   const setToDos = useSetRecoilState(toDoState);
   const categories = useRecoilValue(newCategoryState);
   const defaultCategory = useRecoilValue(categoryState);
-  console.log(categories);
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     // console.log("i wanna go to", event.currentTarget.name);
