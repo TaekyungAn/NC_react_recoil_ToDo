@@ -6,6 +6,8 @@ import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "./theme";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { isDarkAtom } from "./atom";
+import { motion, Variants } from "framer-motion";
+import { useState } from "react";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -91,10 +93,38 @@ const AppWrapper = styled.div`
   align-items: center;
   justify-content: center;
 `;
+const ToggleBox = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  background-color: white;
+  width: 80px;
+  height: 40px;
+  border-radius: 40px;
+`;
+const ToggleCircle = styled(motion.button)`
+  width: 50%;
+  height: 100%;
+  border-radius: 50%;
+  border: 0;
+`;
 
 function App() {
   const [isDark, setIsDark] = useRecoilState(isDarkAtom);
-  const toggleDarkAtom = () => setIsDark((prev) => !prev);
+  const [darkMode, setDarkMode] = useState(true);
+  const toggleClicked = () => {
+    setIsDark((prev) => !prev);
+    setDarkMode((prev) => !prev);
+  };
+  const toggleVariant: Variants = {
+    Daymode: {
+      backgroundColor: "white",
+    },
+    Nightmode: {
+      backgroundColor: "gray",
+    },
+  };
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <AppWrapper>
@@ -104,7 +134,18 @@ function App() {
           <ToDoList />
         </Middle>
         <BottomBar />
-        <button onClick={toggleDarkAtom}>Toggle</button>
+        <ToggleBox>
+          <ToggleCircle
+            variants={toggleVariant}
+            initial="start"
+            animate={!darkMode ? "Daymode" : "Nightmode"}
+            onClick={toggleClicked}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            {!darkMode ? "Daymode" : "Nightmode"}
+          </ToggleCircle>
+        </ToggleBox>
       </AppWrapper>
     </ThemeProvider>
   );

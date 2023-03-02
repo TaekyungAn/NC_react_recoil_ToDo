@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { categoryState, newCategoryState } from "../../atom";
+import Button from "../UI/Button";
 
 const CategoryWrapper = styled.div``;
 const Title = styled.div`
@@ -27,8 +28,10 @@ const Title = styled.div`
 const CategoryList = styled.div`
   margin: 20px 15px;
   display: flex;
-
-  > button {
+  > button.selected {
+    background-color: blue;
+  }
+  /* > button {
     border: 0;
     outline: 0;
     padding: 10px;
@@ -37,22 +40,25 @@ const CategoryList = styled.div`
     cursor: pointer;
     :focus {
       background-color: ${(props) => props.theme.btnColor};
-    }
-  }
+    } 
+  }*/
 `;
 
 function Category() {
+  const btnRef = useRef<HTMLButtonElement>(null);
   const [defaultCategory, setDefaultCategory] = useRecoilState(categoryState);
   const [newCategory, setNewCategory] = useRecoilState(newCategoryState);
+  const [selectedCategory, setSelectedCategory] = useState(newCategory[0]);
+
+  // useEffect(() => {
+  //   if (btnRef.current !== null) btnRef.current.focus();
+  // });
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setDefaultCategory(event.currentTarget.value);
     console.log(event.currentTarget.value);
     console.log(defaultCategory);
-
-    if (defaultCategory === event.currentTarget.value) {
-      console.log("true");
-    }
+    setSelectedCategory(event.currentTarget.value);
   };
 
   const deleteCategory = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -78,14 +84,14 @@ function Category() {
       <hr />
       <CategoryList>
         {newCategory.map((newlist) => (
-          <button
-            className={newlist}
+          <Button
+            className={newlist === selectedCategory ? "selected" : ""}
             key={newlist}
             onClick={onClick}
             value={newlist}
           >
             {newlist}
-          </button>
+          </Button>
         ))}
       </CategoryList>
     </CategoryWrapper>
