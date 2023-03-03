@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import useGeolocation from "./useGeolocation";
 
 const Box = styled.div`
   width: 300px;
@@ -11,6 +12,16 @@ const Box = styled.div`
 `;
 
 function LeftBar() {
-  return <Box>Left Bar</Box>;
+  const location = useGeolocation();
+  console.log(location);
+
+  return (
+    <Box>
+      Left Bar
+      {location.loaded
+        ? JSON.stringify(location)
+        : "Location data not available yet"}
+    </Box>
+  );
 }
 export default LeftBar;

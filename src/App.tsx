@@ -6,7 +6,7 @@ import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "./theme";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { isDarkAtom } from "./atom";
-import { motion, Variants } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import { useState } from "react";
 
 const GlobalStyle = createGlobalStyle`
@@ -145,27 +145,17 @@ function App() {
           <ToDoList />
         </Middle>
         <BottomBar />
-        <ToggleBox>
-          {darkMode ? (
-            <ToggleNight
-              variants={toggleVariant}
-              animate={!darkMode ? "Daymode" : "Nightmode"}
-              onClick={toggleClicked}
-              layoutId="toggle"
-            >
-              Night
-            </ToggleNight>
-          ) : null}
-          {!darkMode ? (
-            <ToggleDay
-              layoutId="toggle"
-              variants={toggleVariant}
-              animate={!darkMode ? "Daymode" : "Nightmode"}
-              onClick={toggleClicked}
-            >
-              Day
-            </ToggleDay>
-          ) : null}
+        <ToggleBox onClick={toggleClicked}>
+          <AnimatePresence initial={false}>
+            <motion.i
+              className={`icon far fa-${darkMode ? "moon" : "sun"}`}
+              key={darkMode ? "moon" : "sun"}
+              initial={{ y: -30, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 30, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            />
+          </AnimatePresence>
         </ToggleBox>
       </AppWrapper>
     </ThemeProvider>
