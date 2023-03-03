@@ -94,20 +94,26 @@ const AppWrapper = styled.div`
   justify-content: center;
 `;
 const ToggleBox = styled(motion.div)`
-  display: flex;
-  flex-direction: column;
-
-  align-items: center;
+  position: relative;
   background-color: white;
   width: 80px;
   height: 40px;
   border-radius: 40px;
+
+  > button {
+    width: 50%;
+    height: 100%;
+    border-radius: 50%;
+    border: 0;
+  }
 `;
-const ToggleCircle = styled(motion.button)`
-  width: 50%;
-  height: 100%;
-  border-radius: 50%;
-  border: 0;
+const ToggleNight = styled(motion.button)`
+  position: absolute;
+  left: 0;
+`;
+const ToggleDay = styled(motion.button)`
+  position: absolute;
+  right: 0;
 `;
 
 function App() {
@@ -119,10 +125,15 @@ function App() {
   };
   const toggleVariant: Variants = {
     Daymode: {
-      backgroundColor: "white",
+      backgroundColor: "pink",
+      transition: {
+        type: "tween",
+        duration: 3,
+      },
     },
     Nightmode: {
       backgroundColor: "gray",
+      transition: { type: "tween" },
     },
   };
   return (
@@ -135,16 +146,26 @@ function App() {
         </Middle>
         <BottomBar />
         <ToggleBox>
-          <ToggleCircle
-            variants={toggleVariant}
-            initial="start"
-            animate={!darkMode ? "Daymode" : "Nightmode"}
-            onClick={toggleClicked}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            {!darkMode ? "Daymode" : "Nightmode"}
-          </ToggleCircle>
+          {darkMode ? (
+            <ToggleNight
+              variants={toggleVariant}
+              animate={!darkMode ? "Daymode" : "Nightmode"}
+              onClick={toggleClicked}
+              layoutId="toggle"
+            >
+              Night
+            </ToggleNight>
+          ) : null}
+          {!darkMode ? (
+            <ToggleDay
+              layoutId="toggle"
+              variants={toggleVariant}
+              animate={!darkMode ? "Daymode" : "Nightmode"}
+              onClick={toggleClicked}
+            >
+              Day
+            </ToggleDay>
+          ) : null}
         </ToggleBox>
       </AppWrapper>
     </ThemeProvider>

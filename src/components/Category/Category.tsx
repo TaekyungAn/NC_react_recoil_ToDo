@@ -29,19 +29,8 @@ const CategoryList = styled.div`
   margin: 20px 15px;
   display: flex;
   > button.selected {
-    background-color: blue;
+    background-color: ${(props) => props.theme.btnColor};
   }
-  /* > button {
-    border: 0;
-    outline: 0;
-    padding: 10px;
-    border-radius: 5px;
-    margin-right: 5px;
-    cursor: pointer;
-    :focus {
-      background-color: ${(props) => props.theme.btnColor};
-    } 
-  }*/
 `;
 
 function Category() {
