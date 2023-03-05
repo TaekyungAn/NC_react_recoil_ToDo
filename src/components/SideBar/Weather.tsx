@@ -34,6 +34,7 @@ const Weather = () => {
   const [currentWeather, setCurrentWeather] = useState<weatherType>({
     weather: {
       main: "",
+      icon: "",
     },
     main: {
       temp: 0,
@@ -70,6 +71,7 @@ const Weather = () => {
   const getWeather = async () => {
     const res = await axios(url);
     const weather = res.data.weather[0].main;
+    const icon = res.data.weather[0].icon;
 
     const main = res.data.main;
     const temp = main.temp;
@@ -80,7 +82,7 @@ const Weather = () => {
     const name = res.data.name;
 
     setCurrentWeather({
-      weather: { main: weather },
+      weather: { main: weather, icon },
       main: { temp, feels_like, temp_min, temp_max },
       name,
     });
