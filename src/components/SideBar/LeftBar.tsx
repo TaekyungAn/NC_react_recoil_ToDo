@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import useGeolocation from "./useGeolocation";
+import Weather from "./Weather";
 
 const Box = styled.div`
   width: 300px;
@@ -12,15 +12,16 @@ const Box = styled.div`
 `;
 
 function LeftBar() {
-  const location = useGeolocation();
-  console.log(location);
+  // const location = useGeolocation();
+  // console.log(location);
 
   return (
     <Box>
-      Left Bar
+      {/* Left Bar
       {location.loaded
         ? JSON.stringify(location)
-        : "Location data not available yet"}
+        : "Location data not available yet"} */}
+      <Weather />
     </Box>
   );
 }

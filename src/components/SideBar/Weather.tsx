@@ -7,12 +7,14 @@ interface locationType {
   error?: { code: number; message: string };
 }
 
-const useGeolocation = () => {
+const Weather = () => {
   const API_KEY = "dd090a3775cd82a4ec793394d167fe19";
   const [location, setLocation] = useState<locationType>({
     loaded: false,
     coordinates: { lat: 0, lon: 0 },
   });
+  const [currnetName, setCurrnetName] = useState("");
+  const [currnetWeather, setCurrnetWeather] = useState("");
 
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.coordinates?.lat}&lon=${location.coordinates?.lon}&appid=${API_KEY}&units=metric`;
 
@@ -41,6 +43,8 @@ const useGeolocation = () => {
     const res = await axios(url);
     const name = res.data.name;
     const weather = res.data.weather[0].main;
+    setCurrnetName(name);
+    setCurrnetWeather(weather);
   };
 
   useEffect(() => {
@@ -56,9 +60,13 @@ const useGeolocation = () => {
     getWeather();
   }, []);
 
-  return location;
+  return (
+    <div>
+      {currnetName} / {currnetWeather}
+    </div>
+  );
 };
 
-export default useGeolocation;
+export default Weather;
 
 // https://velog.io/@nemo/react-geolocation-api-hook
