@@ -12,7 +12,7 @@ const Box = styled.div`
 `;
 
 function LeftBar() {
-  // const location = useGeolocation();
+  const weather = Weather();
   // console.log(location);
 
   return (
@@ -21,7 +21,9 @@ function LeftBar() {
       {location.loaded
         ? JSON.stringify(location)
         : "Location data not available yet"} */}
-      <Weather />
+      {weather.weather?.main}
+      {weather.main?.temp}
+      {weather.main?.feels_like}
     </Box>
   );
 }

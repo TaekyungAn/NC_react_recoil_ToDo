@@ -6,6 +6,24 @@ interface locationType {
   coordinates?: { lat: number; lon: number };
   error?: { code: number; message: string };
 }
+interface weatherType {
+  weather?: {
+    id?: number;
+    main?: string;
+    description?: string;
+    icon?: string;
+  };
+  main?: {
+    temp?: number;
+    feels_like?: number;
+    temp_min?: number;
+    temp_max?: number;
+    pressure?: number;
+    humidity?: number;
+  };
+  id?: number;
+  name?: string;
+}
 
 const Weather = () => {
   const API_KEY = "dd090a3775cd82a4ec793394d167fe19";
@@ -13,8 +31,18 @@ const Weather = () => {
     loaded: false,
     coordinates: { lat: 0, lon: 0 },
   });
-  const [currnetName, setCurrnetName] = useState("");
-  const [currnetWeather, setCurrnetWeather] = useState("");
+  const [currentWeather, setCurrentWeather] = useState<weatherType>({
+    weather: {
+      main: "",
+    },
+    main: {
+      temp: 0,
+      feels_like: 0,
+      temp_min: 0,
+      temp_max: 0,
+    },
+    name: "",
+  });
 
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.coordinates?.lat}&lon=${location.coordinates?.lon}&appid=${API_KEY}&units=metric`;
 
@@ -41,10 +69,21 @@ const Weather = () => {
 
   const getWeather = async () => {
     const res = await axios(url);
-    const name = res.data.name;
     const weather = res.data.weather[0].main;
-    setCurrnetName(name);
-    setCurrnetWeather(weather);
+
+    const main = res.data.main;
+    const temp = main.temp;
+    const feels_like = main.feels_like;
+    const temp_min = main.temp_min;
+    const temp_max = main.temp_max;
+
+    const name = res.data.name;
+
+    setCurrentWeather({
+      weather: { main: weather },
+      main: { temp, feels_like, temp_min, temp_max },
+      name,
+    });
   };
 
   useEffect(() => {
@@ -60,11 +99,7 @@ const Weather = () => {
     getWeather();
   }, []);
 
-  return (
-    <div>
-      {currnetName} / {currnetWeather}
-    </div>
-  );
+  return currentWeather;
 };
 
 export default Weather;
