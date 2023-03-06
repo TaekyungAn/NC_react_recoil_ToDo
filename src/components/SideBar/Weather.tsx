@@ -6,7 +6,7 @@ interface locationType {
   coordinates?: { lat: number; lon: number };
   error?: { code: number; message: string };
 }
-interface weatherType {
+export interface weatherType {
   weather?: {
     id?: number;
     main?: string;
