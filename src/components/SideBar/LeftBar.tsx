@@ -45,32 +45,14 @@ function LeftBar() {
   const [showClock, setShowClock] = useState("");
   const weather = Weather();
 
-  // string literal 타입
-  // 안된 거
-  type ObjType = {
-    [index: string]: Element;
-    "01d": Element;
-    "02d": Element;
-    "03d": Element;
-    "04d": Element;
-    "09d": Element;
-    "10d": Element;
-    "11d": Element;
-    "13d": Element;
-    "50d": Element;
+  // 참고
+  // 아이콘 객체 형태로 넣는 아이디어 : https://byul91oh.tistory.com/31
 
-    "01n": Element;
-    "02n": Element;
-    "03n": Element;
-    "04n": Element;
-    "09n": Element;
-    "10n": Element;
-    "11n": Element;
-    "13n": Element;
-    "50n": Element;
-  };
+  // string literal 타입
+  // : https://soopdop.github.io/2020/12/01/index-signatures-in-typescript/
+
   // 된거 : https://stackoverflow.com/questions/69210695/type-element-is-not-assignable-to-type-string-ts2322
-  type ObjTypee = {
+  type ObjType = {
     [index: string]: ReactElement;
     "01d": ReactElement;
     "02d": ReactElement;
@@ -92,7 +74,7 @@ function LeftBar() {
     "13n": ReactElement;
     "50n": ReactElement;
   };
-  const weatherIcon: ObjTypee = {
+  const weatherIcon: ObjType = {
     "01d": <WiDaySunny />,
     "02d": <WiDayCloudy />,
     "03d": <WiCloud />,
@@ -127,16 +109,9 @@ function LeftBar() {
   const icon = weather.weather?.icon;
   // Error: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type
 
-  console.log(weatherIcon[`${icon}`]);
-  console.log(weatherIcon["01d"]);
-
   return (
     <Box>
       <WeatherBox>
-        <img
-          src={`http://openweathermap.org/img/w/${icon}.png`}
-          alt="weathericon"
-        />
         <div>{weatherIcon[`${icon}`]}</div>
         <span>{weather.weather?.main}</span>
         <span>{name}</span>
