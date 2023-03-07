@@ -102,7 +102,7 @@ function App() {
         <GlobalStyle />
         <Middle>
           <LeftBar />
-          <ToDoList />
+          <ToDoList text={""} id={0} category={""} />
         </Middle>
         <BottomBar />
         <Toggle />

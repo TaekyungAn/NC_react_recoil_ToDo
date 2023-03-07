@@ -9,14 +9,28 @@ interface IForm {
 
 const CreateForm = styled.form`
   margin: 0px 15px;
+  > input {
+    width: 500px;
+    height: 32px;
+    font-size: 15px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding-left: 10px;
+    background-color: rgb(233, 233, 233);
+  }
   > button {
     border: 0;
     outline: 0;
-    /* box-shadow: -10px -10px 30px 0 #ffffff, 10px 10px 30px 0 #aeaec0 40%,
-      -10px -10px 10px 0 #aeaec0 25%, 10px 10px 10px 0 #ffffff; */
     box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45),
       5px 5px 9px rgba(94, 104, 121, 0.3);
     background-color: white;
+
+    width: 50px;
+    height: 32px;
+    border-radius: 15px;
+
+    cursor: pointer;
   }
 `;
 

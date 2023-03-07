@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import { categoryState, newCategoryState } from "../../atom";
+import { categoryState, newCategoryState, toDoSelector } from "../../atom";
 import Button from "../UI/Button";
 
 const CategoryWrapper = styled.div``;
@@ -38,6 +38,7 @@ function Category() {
   const [defaultCategory, setDefaultCategory] = useRecoilState(categoryState);
   const [newCategory, setNewCategory] = useRecoilState(newCategoryState);
   const [selectedCategory, setSelectedCategory] = useState(newCategory[0]);
+  const toDos = useRecoilValue(toDoSelector);
 
   // useEffect(() => {
   //   if (btnRef.current !== null) btnRef.current.focus();
@@ -68,6 +69,7 @@ function Category() {
             ? "카테고리를 생성해 주세요"
             : defaultCategory}
         </h2>
+        <span>({toDos.length})</span>
         <button onClick={deleteCategory}>x</button>
       </Title>
       <hr />

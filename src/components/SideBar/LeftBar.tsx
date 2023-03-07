@@ -1,4 +1,4 @@
-import { useState, ReactElement } from "react";
+import { useState, ReactElement, useMemo, useEffect } from "react";
 import styled from "styled-components";
 import Weather from "./Weather";
 import {
@@ -18,6 +18,7 @@ import {
   WiDayLightning,
 } from "react-icons/wi";
 import useMediaQuery from "../../hooks/useMediaQuery";
+import React from "react";
 
 const Box = styled.div`
   width: 300px;
@@ -107,9 +108,12 @@ function LeftBar() {
     "50n": <WiNightFog />,
   };
 
-  setInterval(() => {
-    setShowClock(new Date().toLocaleTimeString("en-US"));
-  }, 1000);
+  // setInverval이 leftBar전체를 리렌더링 시키지 않도록 리팩토링하기.
+  const getClock = useMemo(() => {
+    setInterval(() => {
+      setShowClock(new Date().toLocaleTimeString("en-US"));
+    }, 1000);
+  }, []);
 
   // How to solve: Type 'undefined' is not assignable to type 'number'
   // https://bobbyhadz.com/blog/typescript-type-undefined-is-not-assignable-to-type
@@ -147,4 +151,4 @@ function LeftBar() {
     </Box>
   );
 }
-export default LeftBar;
+export default React.memo(LeftBar);
