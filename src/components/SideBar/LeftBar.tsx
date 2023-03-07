@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, ReactElement } from "react";
 import styled from "styled-components";
-import Weather, { weatherType } from "./Weather";
+import Weather from "./Weather";
 import {
   WiDaySunny,
   WiDayCloudy,
@@ -31,6 +31,8 @@ const Box = styled.div`
 const WeatherBox = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   > img,
   div {
     width: 200px;
@@ -44,8 +46,9 @@ function LeftBar() {
   const weather = Weather();
 
   // string literal 타입
+  // 안된 거
   type ObjType = {
-    [index: Element]: Element;
+    [index: string]: Element;
     "01d": Element;
     "02d": Element;
     "03d": Element;
@@ -66,7 +69,30 @@ function LeftBar() {
     "13n": Element;
     "50n": Element;
   };
-  const weatherIcon: ObjType = {
+  // 된거 : https://stackoverflow.com/questions/69210695/type-element-is-not-assignable-to-type-string-ts2322
+  type ObjTypee = {
+    [index: string]: ReactElement;
+    "01d": ReactElement;
+    "02d": ReactElement;
+    "03d": ReactElement;
+    "04d": ReactElement;
+    "09d": ReactElement;
+    "10d": ReactElement;
+    "11d": ReactElement;
+    "13d": ReactElement;
+    "50d": ReactElement;
+
+    "01n": ReactElement;
+    "02n": ReactElement;
+    "03n": ReactElement;
+    "04n": ReactElement;
+    "09n": ReactElement;
+    "10n": ReactElement;
+    "11n": ReactElement;
+    "13n": ReactElement;
+    "50n": ReactElement;
+  };
+  const weatherIcon: ObjTypee = {
     "01d": <WiDaySunny />,
     "02d": <WiDayCloudy />,
     "03d": <WiCloud />,
@@ -94,10 +120,13 @@ function LeftBar() {
 
   // How to solve: Type 'undefined' is not assignable to type 'number'
   // https://bobbyhadz.com/blog/typescript-type-undefined-is-not-assignable-to-type
+  const name = weather.name;
   const temp = Math.round(weather.main?.temp!);
   const feels_like = Math.round(weather.main?.feels_like!);
 
-  const icon = weather.weather?.icon as string;
+  const icon = weather.weather?.icon;
+  // Error: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type
+
   console.log(weatherIcon[`${icon}`]);
   console.log(weatherIcon["01d"]);
 
@@ -108,8 +137,9 @@ function LeftBar() {
           src={`http://openweathermap.org/img/w/${icon}.png`}
           alt="weathericon"
         />
-        {/* <div>{weatherIcon[icon]}</div> */}
+        <div>{weatherIcon[`${icon}`]}</div>
         <span>{weather.weather?.main}</span>
+        <span>{name}</span>
         <span>temperature: {temp}℃</span>
         <span>feels like: {feels_like}℃</span>
       </WeatherBox>

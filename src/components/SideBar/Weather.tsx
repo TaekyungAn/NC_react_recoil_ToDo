@@ -6,12 +6,35 @@ interface locationType {
   coordinates?: { lat: number; lon: number };
   error?: { code: number; message: string };
 }
+type IconType = {
+  [index: string]: string;
+  "01d": string;
+  "02d": string;
+  "03d": string;
+  "04d": string;
+  "09d": string;
+  "10d": string;
+  "11d": string;
+  "13d": string;
+  "50d": string;
+
+  "01n": string;
+  "02n": string;
+  "03n": string;
+  "04n": string;
+  "09n": string;
+  "10n": string;
+  "11n": string;
+  "13n": string;
+  "50n": string;
+};
+
 export interface weatherType {
   weather?: {
     id?: number;
     main?: string;
     description?: string;
-    icon?: string;
+    icon?: IconType;
   };
   main?: {
     temp?: number;
@@ -34,7 +57,7 @@ const Weather = () => {
   const [currentWeather, setCurrentWeather] = useState<weatherType>({
     weather: {
       main: "",
-      icon: "",
+      icon: undefined,
     },
     main: {
       temp: 0,
