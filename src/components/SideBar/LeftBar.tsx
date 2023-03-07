@@ -17,6 +17,7 @@ import {
   WiDayFog,
   WiDayLightning,
 } from "react-icons/wi";
+import useMediaQuery from "../../hooks/useMediaQuery";
 
 const Box = styled.div`
   width: 300px;
@@ -25,32 +26,42 @@ const Box = styled.div`
   border-right: solid ${(props) => props.theme.bgColor} 10px;
   background-color: ${(props) => props.theme.boxColor};
   color: ${(props) => props.theme.textColor};
-  padding: 10px;
+  padding: 20px 10px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const WeatherBox = styled.div`
+  > div:first-child {
+    font-size: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
+const ShortBox = styled.div``;
+const LongBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  > img,
-  div {
-    width: 200px;
-    font-size: 200px;
+  > span {
+    margin-bottom: 10px;
   }
 `;
-const ClockBox = styled.div``;
+
+const ClockBox = styled.div`
+  font-size: 32px;
+`;
 
 function LeftBar() {
   const [showClock, setShowClock] = useState("");
   const weather = Weather();
-
-  // 참고
-  // 아이콘 객체 형태로 넣는 아이디어 : https://byul91oh.tistory.com/31
-
-  // string literal 타입
-  // : https://soopdop.github.io/2020/12/01/index-signatures-in-typescript/
-
   // 된거 : https://stackoverflow.com/questions/69210695/type-element-is-not-assignable-to-type-string-ts2322
   type ObjType = {
     [index: string]: ReactElement;
@@ -96,27 +107,41 @@ function LeftBar() {
     "50n": <WiNightFog />,
   };
 
-  // setInterval(() => {
-  //   setShowClock(new Date().toLocaleTimeString("en-US"));
-  // }, 1000);
+  setInterval(() => {
+    setShowClock(new Date().toLocaleTimeString("en-US"));
+  }, 1000);
 
   // How to solve: Type 'undefined' is not assignable to type 'number'
   // https://bobbyhadz.com/blog/typescript-type-undefined-is-not-assignable-to-type
   const name = weather.name;
+  const main = weather.weather?.main;
   const temp = Math.round(weather.main?.temp!);
   const feels_like = Math.round(weather.main?.feels_like!);
 
   const icon = weather.weather?.icon;
   // Error: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type
 
+  // useMediaQuery: https://usehooks-ts.com/react-hook/use-media-query
+  const isMoreInfo = useMediaQuery("(min-width:1500px)");
+
   return (
     <Box>
       <WeatherBox>
         <div>{weatherIcon[`${icon}`]}</div>
-        <span>{weather.weather?.main}</span>
-        <span>{name}</span>
-        <span>temperature: {temp}℃</span>
-        <span>feels like: {feels_like}℃</span>
+        {isMoreInfo ? (
+          <LongBox>
+            <span>{main}</span>
+            <span>{name}</span>
+            <span>temperature : {temp}℃</span>
+            <span>feels like : {feels_like}℃</span>
+          </LongBox>
+        ) : (
+          <ShortBox>
+            <span>
+              {name}, {temp}℃
+            </span>
+          </ShortBox>
+        )}
       </WeatherBox>
       <ClockBox>{showClock}</ClockBox>
     </Box>
