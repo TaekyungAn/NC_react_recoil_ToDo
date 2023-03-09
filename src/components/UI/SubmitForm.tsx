@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { IForm } from "../Category/CreateCategory";
 
-interface ISubmitForm {
+export interface IForm {
+  newStuff: string;
+}
+export interface ISubmitForm {
   placeholder: string;
   required: string;
-  registervalue?: string;
   onSubmit: (string: IForm) => void;
 }
 
@@ -38,11 +39,10 @@ const CreateForm = styled.form`
 
 function SubmitForm({ onSubmit, placeholder, required }: ISubmitForm) {
   const { register, handleSubmit } = useForm<IForm>();
-
   return (
     <CreateForm onSubmit={handleSubmit(onSubmit)}>
       <input
-        {...register("inputCategory", {
+        {...register("newStuff", {
           required: `${required}`,
         })}
         placeholder={placeholder}

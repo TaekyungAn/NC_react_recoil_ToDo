@@ -1,27 +1,23 @@
 import { useForm } from "react-hook-form";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import styled from "styled-components";
 import { categoryState, newCategoryState } from "../../atom";
-import SubmitForm from "../UI/SubmitForm";
+import SubmitForm, { IForm } from "../UI/SubmitForm";
 
-export interface IForm {
-  inputCategory: string;
-}
 function CreateCategory() {
-  const { register, handleSubmit, setValue } = useForm<IForm>();
+  const { setValue } = useForm<IForm>();
   const setCurrentCategory = useSetRecoilState(categoryState);
   const [newCategory, setNewCategory] = useRecoilState(newCategoryState);
 
-  const handleValid = ({ inputCategory }: IForm) => {
-    if (inputCategory && inputCategory.length > 0) {
-      if (newCategory.includes(inputCategory)) {
+  const handleValid = ({ newStuff }: IForm) => {
+    if (newStuff && newStuff.length > 0) {
+      if (newCategory.includes(newStuff)) {
         alert("같은 카테고리가 존재합니다.");
-        setValue("inputCategory", "");
+        setValue("newStuff", "");
         return;
       }
-      setNewCategory([...newCategory, inputCategory]);
-      setCurrentCategory(inputCategory);
-      setValue("inputCategory", "");
+      setNewCategory([...newCategory, newStuff]);
+      setCurrentCategory(newStuff);
+      setValue("newStuff", "");
     } else {
       alert("1글자 이상 입력하세요");
     }
@@ -29,7 +25,6 @@ function CreateCategory() {
   return (
     <SubmitForm
       onSubmit={handleValid}
-      // registervalue="inputCategory"
       required="Please write a Category"
       placeholder="New category"
     />
