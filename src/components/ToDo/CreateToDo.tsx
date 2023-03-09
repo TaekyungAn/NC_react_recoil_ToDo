@@ -10,7 +10,7 @@ interface IForm {
 const CreateForm = styled.form`
   margin: 0px 15px;
   > input {
-    width: 500px;
+    width: 80%;
     height: 32px;
     font-size: 15px;
     border: 0;

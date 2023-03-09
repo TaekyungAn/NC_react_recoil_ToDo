@@ -15,7 +15,7 @@ const StyledButton = styled.button`
   }
 `;
 
-interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   bgColor?: string;
   textColor?: string;
@@ -35,7 +35,7 @@ const buttonOptions = {
   },
 };
 
-const Button = ({ onClick, children, value, ...props }: Props) => {
+const Button = ({ onClick, children, value, ...props }: IButton) => {
   return (
     <StyledButton onClick={onClick} value={value} {...props}>
       {children}
