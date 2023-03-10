@@ -21,12 +21,14 @@ const CreateForm = styled.form`
     outline: none;
     padding-left: 10px;
     background-color: rgb(233, 233, 233);
+    margin-bottom: 5px;
+    margin-right: 5px;
   }
   > button {
     border: 0;
     outline: 0;
-    box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45),
-      5px 5px 9px rgba(94, 104, 121, 0.3);
+    /* box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45),
+      5px 5px 9px rgba(94, 104, 121, 0.3); */
     background-color: white;
 
     width: 50px;
@@ -38,7 +40,8 @@ const CreateForm = styled.form`
 `;
 
 function SubmitForm({ onSubmit, placeholder, required }: ISubmitForm) {
-  const { register, handleSubmit } = useForm<IForm>();
+  const { register, handleSubmit, setValue } = useForm<IForm>();
+
   return (
     <CreateForm onSubmit={handleSubmit(onSubmit)}>
       <input

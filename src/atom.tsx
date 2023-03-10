@@ -10,7 +10,13 @@ export interface IToDo {
   text: string;
   id: number;
   category: string;
+  checked: boolean;
 }
+
+export const checkedState = atom<boolean>({
+  key: "checkedState",
+  default: false,
+});
 
 // 기본 카테고리
 export const categoryState = atom<string>({
