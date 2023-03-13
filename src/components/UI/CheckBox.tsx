@@ -1,5 +1,6 @@
+// chindren type 변경: https://stackoverflow.com/questions/62382324/react-typescript-this-jsx-tags-children-prop-expects-a-single-child-of-type
 interface ICheckBox {
-  children: string;
+  children: JSX.Element | JSX.Element[];
   disabled?: boolean;
   checked: boolean;
   id: number;

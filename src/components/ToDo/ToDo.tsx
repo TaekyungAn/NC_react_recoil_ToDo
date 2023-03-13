@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { categoryState, IToDo, newCategoryState, toDoState } from "../../atom";
+import Checkbox from "../UI/CheckBox";
 
 function ToDo({ text, category, id }: IToDo) {
   const setToDos = useSetRecoilState(toDoState);
   const categories = useRecoilValue(newCategoryState);
   const defaultCategory = useRecoilValue(categoryState);
+  const [checked, setChecked] = useState(false);
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     // console.log("i wanna go to", event.currentTarget.name);
@@ -43,21 +45,25 @@ function ToDo({ text, category, id }: IToDo) {
 
   return (
     <li>
-      {text}
-      {Object.values(categories).map(
-        (availableCategory) =>
-          availableCategory !== defaultCategory && (
-            <button
-              disabled={availableCategory === category}
-              key={availableCategory}
-              onClick={onClick}
-              name={availableCategory}
-            >
-              {availableCategory}
-            </button>
-          )
-      )}
-      <button onClick={deleteTodo}>delete</button>
+      <Checkbox id={id} checked={checked} onChange={setChecked}>
+        <div>
+          {text}
+          {Object.values(categories).map(
+            (availableCategory) =>
+              availableCategory !== defaultCategory && (
+                <button
+                  disabled={availableCategory === category}
+                  key={availableCategory}
+                  onClick={onClick}
+                  name={availableCategory}
+                >
+                  {availableCategory}
+                </button>
+              )
+          )}
+          <button onClick={deleteTodo}>delete</button>
+        </div>
+      </Checkbox>
     </li>
   );
 }

@@ -17,7 +17,6 @@ function CreateCategory() {
       }
       setNewCategory([...newCategory, newStuff]);
       setCurrentCategory(newStuff);
-      setValue("newStuff", "");
     } else {
       alert("1글자 이상 입력하세요");
     }

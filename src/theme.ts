@@ -1,7 +1,7 @@
 import { DefaultTheme } from "styled-components";
 
 export const darkTheme: DefaultTheme = {
-  bgImg: "images/bg_dark.jpg",
+  bgImg: "https://img.sbs.co.kr/newimg/news/20230130/201746236_1280.jpg",
   bgColor: "#03001C",
   textColor: "#B6EADA",
   accentColor: "#5B8FB9",
@@ -11,7 +11,8 @@ export const darkTheme: DefaultTheme = {
 //https://i.pinimg.com/564x/56/b3/53/56b353f0bd3cdd2ebe01948e7a921fff.jpg
 
 export const lightTheme: DefaultTheme = {
-  bgImg: "images/bg_light.jpg",
+  bgImg:
+    "https://i.pinimg.com/564x/ee/96/c1/ee96c1c4ad7f29a26f93eb9002e8ac30.jpg",
   bgColor: "#E8D5C4",
   textColor: "#3A98B9",
   accentColor: "#EEEEEE",

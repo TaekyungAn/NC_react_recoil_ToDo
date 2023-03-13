@@ -46,8 +46,6 @@ function Category() {
 
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setDefaultCategory(event.currentTarget.value);
-    console.log(event.currentTarget.value);
-    console.log(defaultCategory);
     setSelectedCategory(event.currentTarget.value);
   };
 

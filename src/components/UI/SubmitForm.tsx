@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
@@ -41,7 +42,11 @@ const CreateForm = styled.form`
 
 function SubmitForm({ onSubmit, placeholder, required }: ISubmitForm) {
   const { register, handleSubmit, setValue } = useForm<IForm>();
-
+  // 아래처럼 입력하면 경고: Too many re-renders. React limits the number of renders to prevent an infinite loop.
+  // setValue("newStuff", "");
+  useEffect(() => {
+    setValue("newStuff", "");
+  }, [onSubmit, setValue]);
   return (
     <CreateForm onSubmit={handleSubmit(onSubmit)}>
       <input
