@@ -7,6 +7,7 @@ import { darkTheme, lightTheme } from "./theme";
 import { useRecoilValue } from "recoil";
 import { isDarkAtom } from "./atom";
 import Toggle from "./components/UI/Toggle";
+import MainStation from "./components/SideBar/MainStation";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -80,7 +81,6 @@ const Middle = styled.div`
   display: flex;
   width: 70%;
   height: 70%;
-  background-color: ${(props) => props.theme.boxColor};
   border-radius: 20px;
 
   margin-bottom: 10px;
@@ -104,10 +104,9 @@ function App() {
         <GlobalStyle />
         <Middle>
           <LeftBar />
-          <ToDoList />
+          <MainStation />
         </Middle>
         <BottomBar />
-        <Toggle />
       </AppWrapper>
     </ThemeProvider>
   );

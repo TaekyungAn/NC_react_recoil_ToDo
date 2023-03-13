@@ -24,7 +24,9 @@ const Box = styled.div`
   width: 300px;
   height: 100%;
   border-radius: 20px 0 0 20px;
-  border-right: solid ${(props) => props.theme.bgColor} 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+  margin-right: 10px;
   background-color: ${(props) => props.theme.boxColor};
   color: ${(props) => props.theme.textColor};
   padding: 20px 10px;

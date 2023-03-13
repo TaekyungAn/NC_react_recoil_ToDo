@@ -11,6 +11,7 @@ const Container = styled.div`
   height: 40px;
   width: 80px;
   border-radius: 25px;
+
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -23,6 +24,8 @@ const Container = styled.div`
       rgba(253, 203, 50, 1) 0%,
       rgba(244, 56, 98, 1) 100.2%
     );
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset,
+      rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
     > div {
       color: #f88748;
     }
@@ -34,6 +37,8 @@ const Container = styled.div`
       rgba(41, 14, 151, 1) -5.2%,
       rgba(216, 68, 148, 1) 103.3%
     );
+    box-shadow: rgb(80, 74, 81) 3px 3px 6px 0px inset,
+      rgba(248, 241, 252, 0.7) -3px -3px 6px 1px inset;
     > div {
       color: #501a96;
     }
