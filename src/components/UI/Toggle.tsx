@@ -3,72 +3,58 @@ import { useState } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isDarkAtom } from "../../atom";
+import { BiSun, BiMoon } from "react-icons/bi";
 
-const ToggleBox = styled(motion.div)`
-  position: relative;
-  background-color: white;
-  width: 80px;
+const ToggleBox = styled(motion.div)``;
+
+const Container = styled.div`
   height: 40px;
-  border-radius: 40px;
-
-  > button {
-    width: 50%;
-    height: 100%;
-    border-radius: 50%;
-    border: 0;
-  }
-  .container {
-    height: 40px;
-    width: 100px;
+  width: 80px;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  &.lightmode {
     background-image: radial-gradient(
       circle farthest-corner at 10% 20%,
       rgba(253, 203, 50, 1) 0%,
       rgba(244, 56, 98, 1) 100.2%
     );
-    border-radius: 25px;
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-    padding: 0 5px;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  .handle {
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    background-color: #fff;
-    overflow: hidden;
-  }
-  .icon {
-    color: #f88748;
-  }
-  &[isDarkmode="true"] {
-    background-color: #52527a;
-    .container {
-      background-image: linear-gradient(
-        109.8deg,
-        rgba(62, 5, 116, 1) -5.2%,
-        rgba(41, 14, 151, 1) -5.2%,
-        rgba(216, 68, 148, 1) 103.3%
-      );
+    > div {
+      color: #f88748;
     }
-
-    .icon {
+  }
+  &.nightmode {
+    background-image: linear-gradient(
+      109.8deg,
+      rgba(62, 5, 116, 1) -5.2%,
+      rgba(41, 14, 151, 1) -5.2%,
+      rgba(216, 68, 148, 1) 103.3%
+    );
+    > div {
       color: #501a96;
     }
   }
 `;
-const ToggleNight = styled(motion.button)`
-  position: absolute;
-  left: 0;
+const Handle = styled(motion.div)`
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  background-color: #fff;
+  overflow: hidden;
 `;
-const ToggleDay = styled(motion.button)`
-  position: absolute;
-  right: 0;
+
+const IconWrapper = styled(motion.div)`
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Toggle = () => {
@@ -79,40 +65,28 @@ const Toggle = () => {
     setIsDark((prev) => !prev);
     setIsDarkMode((prev) => !prev);
   };
-  const toggleVariant: Variants = {
-    Daymode: {
-      backgroundColor: "pink",
-      transition: {
-        type: "tween",
-        duration: 3,
-      },
-    },
-    Nightmode: {
-      backgroundColor: "gray",
-      transition: { type: "tween" },
-    },
-  };
+
   return (
     <ToggleBox>
-      <div
-        className="container"
-        data-darkmode={isDarkMode}
+      <Container
+        className={isDarkMode ? "lightmode" : "nightmode"}
         onClick={toggleClicked}
         style={{ justifyContent: isDarkMode ? "flex-end" : "flex-start" }}
       >
-        <motion.div layout className="handle">
+        <Handle layout>
           <AnimatePresence initial={false}>
-            <motion.i
-              className={`icon far fa-${isDarkMode ? "moon" : "sun"}`}
+            <IconWrapper
               key={isDarkMode ? "moon" : "sun"}
               initial={{ y: -30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 30, opacity: 0 }}
               transition={{ duration: 0.2 }}
-            />
+            >
+              {isDarkMode ? <BiSun /> : <BiMoon />}
+            </IconWrapper>
           </AnimatePresence>
-        </motion.div>
-      </div>
+        </Handle>
+      </Container>
     </ToggleBox>
   );
 };

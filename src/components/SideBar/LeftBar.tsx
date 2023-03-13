@@ -1,4 +1,4 @@
-import { useState, ReactElement, useMemo, useEffect } from "react";
+import { useState, ReactElement, useMemo } from "react";
 import styled from "styled-components";
 import Weather from "./Weather";
 import {
@@ -108,7 +108,7 @@ function LeftBar() {
     "50n": <WiNightFog />,
   };
 
-  // setInverval이 leftBar전체를 리렌더링 시키지 않도록 리팩토링하기.
+  // +) setInverval이 leftBar전체를 리렌더링 시키지 않도록 리팩토링하기.
   const getClock = useMemo(() => {
     setInterval(() => {
       setShowClock(new Date().toLocaleTimeString("en-US"));
