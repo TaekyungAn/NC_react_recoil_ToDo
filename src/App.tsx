@@ -63,7 +63,6 @@ table {
 }
 body{
   font-family: 'Source Sans Pro', sans-serif;
-  /* background: url('bg_dark.jpg') no-repeat; */
   width: 100%;
   height: 100%;
   background-image: url(${(props) => props.theme.bgImg});
