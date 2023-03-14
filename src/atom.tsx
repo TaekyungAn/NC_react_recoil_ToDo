@@ -49,3 +49,13 @@ export const isDarkAtom = atom({
   key: "isDark",
   default: true,
 });
+
+export interface IChecked {
+  checked: boolean;
+  id: number;
+}
+// 체크박스 리스트
+export const checkedListState = atom<IChecked[]>({
+  key: "checkedList",
+  default: [],
+});

@@ -2,20 +2,29 @@
 interface ICheckBox {
   children: JSX.Element | JSX.Element[];
   disabled?: boolean;
-  checked: boolean;
+  checked?: boolean;
   id: number;
-  onChange: (checked: boolean) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function Checkbox({ id, children, disabled, checked, onChange }: ICheckBox) {
+function Checkbox({
+  id,
+  children,
+  disabled,
+  checked,
+  onChange,
+  onInput,
+}: ICheckBox) {
   return (
     <label>
       <input
         type="checkbox"
         id={`${id}`}
         disabled={disabled}
-        checked={checked}
-        onChange={({ target: { checked } }) => onChange(checked)}
+        // checked={checked}
+        onChange={onChange}
+        onInput={onInput}
       />
       {children}
     </label>
