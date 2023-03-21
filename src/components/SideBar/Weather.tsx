@@ -31,10 +31,14 @@ export interface weatherType {
 }
 
 const WeatherBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  > div {
+    height: 230px;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const WeatherIcon = styled(motion.div)`
@@ -87,7 +91,7 @@ const Weather = () => {
     },
     name: "",
   });
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.coordinates?.lat}&lon=${location.coordinates?.lon}&appid=${API_KEY}&units=metric`;
 
@@ -114,23 +118,28 @@ const Weather = () => {
 
   const getWeather = async () => {
     const res = await axios(url);
-    const weather = res.data.weather[0].main;
-    const icon = res.data.weather[0].icon;
-
     const main = res.data.main;
-    const temp = main.temp;
-    const feels_like = main.feels_like;
-    const temp_min = main.temp_min;
-    const temp_max = main.temp_max;
-
-    const name = res.data.name;
+    const info = {
+      weather: res.data.weather[0].main,
+      icon: res.data.weather[0].icon,
+      temp: main.temp,
+      feels_like: main.feels_like,
+      temp_min: main.temp_min,
+      temp_max: main.temp_max,
+      name: res.data.name,
+    };
 
     setCurrentWeather({
-      weather: { main: weather, icon },
-      main: { temp, feels_like, temp_min, temp_max },
+      weather: { main: info.weather, icon },
+      main: {
+        temp,
+        feels_like,
+        temp_min: info.temp_min,
+        temp_max: info.temp_max,
+      },
       name,
     });
-    setLoading(false);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -161,23 +170,28 @@ const Weather = () => {
 
   return (
     <WeatherBox>
-      {"loading..."}
-      <WeatherIcon variants={boxVariants} initial="start" animate="end">
-        {FontAwesome[`${icon}`]}
-      </WeatherIcon>
-      {isMoreInfo ? (
-        <LongBox>
-          <span>{main}</span>
-          <span>{name}</span>
-          <span>temperature : {temp}℃</span>
-          <span>feels like : {feels_like}℃</span>
-        </LongBox>
+      {isLoading ? (
+        <div>loading...</div>
       ) : (
-        <ShortBox>
-          <span>
-            {name}, {temp}℃
-          </span>
-        </ShortBox>
+        <div>
+          <WeatherIcon variants={boxVariants} initial="start" animate="end">
+            {FontAwesome[`${icon}`]}
+          </WeatherIcon>
+          {isMoreInfo ? (
+            <LongBox>
+              <span>{main}</span>
+              <span>{name}</span>
+              <span>temperature : {temp}℃</span>
+              <span>feels like : {feels_like}℃</span>
+            </LongBox>
+          ) : (
+            <ShortBox>
+              <span>
+                {name}, {temp}℃
+              </span>
+            </ShortBox>
+          )}
+        </div>
       )}
     </WeatherBox>
   );
