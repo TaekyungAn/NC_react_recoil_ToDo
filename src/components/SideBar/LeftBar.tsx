@@ -11,9 +11,10 @@ const Box = styled.div`
 
   margin-right: 10px;
   /* background-color: ${(props) => props.theme.boxColor}; */
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: ${(props) => props.theme.barColor};
 
-  color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.accentColor};
+
   padding: 20px 10px;
 
   display: flex;

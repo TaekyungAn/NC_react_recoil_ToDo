@@ -10,6 +10,7 @@ declare module "styled-components" {
     bgImg?: string;
     boxColor?: string;
     btnColor?: string;
+    barColor?: string;
     colors?: {
       blueMain: string;
       blue100: string;
@@ -24,6 +25,10 @@ declare module "styled-components" {
       gray900: string;
 
       green100: string;
+    };
+    bgGradient?: {
+      start: string;
+      end: string;
     };
   }
 }

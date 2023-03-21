@@ -47,6 +47,9 @@ const WeatherIcon = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
+  svg {
+    color: ${(props) => props.theme.textColor};
+  }
 `;
 
 const ShortBox = styled.div``;

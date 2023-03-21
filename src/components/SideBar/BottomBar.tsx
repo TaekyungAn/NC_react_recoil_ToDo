@@ -7,7 +7,7 @@ const Box = styled.div`
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
-  background-color: ${(props) => props.theme.boxColor};
+  background-color: ${(props) => props.theme.barColor};
   padding: 10px;
   color: ${(props) => props.theme.textColor};
 `;

@@ -3,10 +3,16 @@ import { DefaultTheme } from "styled-components";
 export const darkTheme: DefaultTheme = {
   bgImg: "https://img.sbs.co.kr/newimg/news/20230130/201746236_1280.jpg",
   bgColor: "#03001C",
-  textColor: "#B6EADA",
-  accentColor: "#5B8FB9",
-  boxColor: "#301E67",
-  btnColor: "#B6EADA",
+  textColor: "#F2F3E9",
+  accentColor: "#1CBC9C",
+  boxColor: "#200526",
+  btnColor: "#414C92",
+  barColor: "#280338",
+
+  bgGradient: {
+    start: "#075B60",
+    end: "#3C0662",
+  },
 };
 //https://i.pinimg.com/564x/56/b3/53/56b353f0bd3cdd2ebe01948e7a921fff.jpg
 
@@ -14,10 +20,15 @@ export const lightTheme: DefaultTheme = {
   bgImg:
     "https://i.pinimg.com/564x/ee/96/c1/ee96c1c4ad7f29a26f93eb9002e8ac30.jpg",
   bgColor: "#E8D5C4",
-  textColor: "#3A98B9",
-  accentColor: "#EEEEEE",
-  boxColor: "#FFF1DC",
-  btnColor: "#3A98B9",
+  textColor: "#060607",
+  accentColor: "#3A98B9",
+  boxColor: "#F6FCFD",
+  barColor: "#EEF9F6",
+  btnColor: "#D5EBEC",
+  bgGradient: {
+    start: "#BFD3F9",
+    end: "#DDE9BE",
+  },
 };
 //https://i.pinimg.com/564x/fd/7c/a8/fd7ca855764f1ecb64dc564de299a52e.jpg
 

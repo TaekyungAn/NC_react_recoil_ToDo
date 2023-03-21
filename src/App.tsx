@@ -70,6 +70,9 @@ body{
   background-size: cover;
   /* background-color: ${(props) => props.theme.bgColor}; */
   color: ${(props) => props.theme.textColor};
+  background: linear-gradient(${(props) => props.theme.bgGradient?.start}, ${(
+  props
+) => props.theme.bgGradient?.end});
 }
 a{
   text-decoration: none;
