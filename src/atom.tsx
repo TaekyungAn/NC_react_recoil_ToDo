@@ -50,12 +50,8 @@ export const isDarkAtom = atom({
   default: true,
 });
 
-export interface IChecked {
-  checked: boolean;
-  id: number;
-}
 // 체크박스 리스트
-export const checkedListState = atom<IChecked[]>({
+export const checkedListState = atom<string[]>({
   key: "checkedList",
   default: [],
 });

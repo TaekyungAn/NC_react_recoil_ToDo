@@ -1,16 +1,21 @@
 import React, { useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { categoryState, IToDo, newCategoryState, toDoState } from "../../atom";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  categoryState,
+  checkedListState,
+  IToDo,
+  newCategoryState,
+  toDoState,
+} from "../../atom";
 import Checkbox from "../UI/CheckBox";
 
 function ToDo({ text, category, id }: IToDo) {
   const setToDos = useSetRecoilState(toDoState);
   const categories = useRecoilValue(newCategoryState);
   const defaultCategory = useRecoilValue(categoryState);
-  // const [checked, setChecked] = useState(false);
-  const [checkedList, setCheckedList] = useState<string[]>([]);
+
+  const [checkedList, setCheckedList] = useRecoilState(checkedListState);
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    // console.log("i wanna go to", event.currentTarget.name);
     const {
       // 눌리는 버튼 나타내기
       currentTarget: { name },
@@ -45,20 +50,29 @@ function ToDo({ text, category, id }: IToDo) {
   // 체크 된것의 아이디 찾아와
   // 체크 된것들만 모아놓는 배열
   const onBoxClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // setChecked((prev) => !prev);
-    console.log(event.currentTarget.checked, event.currentTarget.id);
-    const checked = event.currentTarget.checked;
-    const item = event.currentTarget.id as string;
-    if (checked) {
-      setCheckedList((prev) => [...prev, item]);
-    } else if (!checked) {
-      setCheckedList(checkedList.filter((el) => el !== item));
-    }
-    // else if (!checked) {
-    //   setCheckedList(checkedList.filter((el) => el !== item));
+    const {
+      currentTarget: { checked, id },
+    } = event;
+    console.log(event);
+
+    // if (checked) {
+    //   setCheckedList((prev) => [...prev, id]);
+    // } else if (!checked) {
+    //   setCheckedList(checkedList.filter((el) => el !== id));
     // }
-    console.log("checkedList", checkedList);
+    // console.log("checkedList", checkedList);
+    setCheckedList((oldChecked) => {
+      const targetIndex = oldChecked.findIndex((checked) => checked === id);
+      const newChecked = id;
+      return [
+        ...oldChecked.slice(0, targetIndex),
+        newChecked,
+        ...oldChecked.slice(targetIndex + 1),
+      ];
+    });
+    console.log(checkedList);
   };
+
   return (
     <li>
       <Checkbox id={id} onChange={onBoxClick}>
