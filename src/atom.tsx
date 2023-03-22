@@ -50,6 +50,11 @@ export const isDarkAtom = atom({
   default: true,
 });
 
+export const openCategoryAtom = atom({
+  key: "openCategory",
+  default: false,
+});
+
 // 체크박스 리스트
 export const checkedListState = atom<string[]>({
   key: "checkedList",

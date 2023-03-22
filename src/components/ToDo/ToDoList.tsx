@@ -19,6 +19,10 @@ const ToDoListWrapper = styled.div`
   }
 `;
 
+const ButtonList = styled.div`
+  display: flex;
+`;
+
 function ToDoList() {
   const toDos = useRecoilValue(toDoSelector);
   console.log(toDos);
@@ -26,7 +30,6 @@ function ToDoList() {
     <ToDoListWrapper>
       <div>
         <Category />
-        <CreateCategory />
         <CreateToDo />
         {toDos.map((toDo) => (
           <ToDo key={toDo.id} {...toDo} />

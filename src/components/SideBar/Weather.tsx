@@ -48,7 +48,7 @@ const WeatherIcon = styled(motion.div)`
   align-items: center;
   justify-content: center;
   svg {
-    color: ${(props) => props.theme.textColor};
+    fill: ${(props) => props.theme.textColor};
   }
 `;
 
@@ -156,6 +156,7 @@ const Weather = () => {
     }
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
     getWeather();
+    console.log(location);
   }, []);
 
   // How to solve: Type 'undefined' is not assignable to type 'number'
@@ -184,8 +185,8 @@ const Weather = () => {
             <LongBox>
               <span>{main}</span>
               <span>{name}</span>
-              <span>temperature : {temp}℃</span>
-              <span>feels like : {feels_like}℃</span>
+              <span>temperature : {temp}°</span>
+              <span>feels like : {feels_like}°</span>
             </LongBox>
           ) : (
             <ShortBox>

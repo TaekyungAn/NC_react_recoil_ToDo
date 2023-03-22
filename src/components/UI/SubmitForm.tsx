@@ -1,11 +1,17 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { openCategoryAtom } from "../../atom";
 
 export interface IForm {
   newStuff: string;
 }
 export interface ISubmitForm {
+  animate?: {
+    scaleX?: number;
+  };
+  transition?: {};
   placeholder: string;
   required: string;
   onSubmit: (string: IForm) => void;
@@ -14,7 +20,8 @@ export interface ISubmitForm {
 const CreateForm = styled.form`
   margin: 0px 15px;
   > input {
-    width: 80%;
+    width: 100%;
+    min-width: 100px;
     height: 32px;
     font-size: 15px;
     border: 0;
@@ -25,11 +32,11 @@ const CreateForm = styled.form`
     margin-bottom: 5px;
     margin-right: 5px;
   }
-  > button {
+  /* > button {
     border: 0;
     outline: 0;
-    /* box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45),
-      5px 5px 9px rgba(94, 104, 121, 0.3); */
+     box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45),
+      5px 5px 9px rgba(94, 104, 121, 0.3); 
     background-color: white;
 
     width: 50px;
@@ -37,10 +44,12 @@ const CreateForm = styled.form`
     border-radius: 15px;
 
     cursor: pointer;
-  }
+  } */
 `;
 
-function SubmitForm({ onSubmit, placeholder, required }: ISubmitForm) {
+function SubmitForm({ onSubmit, placeholder, required, animate }: ISubmitForm) {
+  const openCategory = useRecoilValue(openCategoryAtom);
+
   const { register, handleSubmit, setValue } = useForm<IForm>();
   // 아래처럼 입력하면 경고: Too many re-renders. React limits the number of renders to prevent an infinite loop.
   // setValue("newStuff", "");
@@ -55,7 +64,6 @@ function SubmitForm({ onSubmit, placeholder, required }: ISubmitForm) {
         })}
         placeholder={placeholder}
       />
-      <button>Add</button>
     </CreateForm>
   );
 }

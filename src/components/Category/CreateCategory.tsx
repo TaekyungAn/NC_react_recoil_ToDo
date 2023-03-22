@@ -23,6 +23,8 @@ function CreateCategory() {
   };
   return (
     <SubmitForm
+      animate={{ scaleX: 1 }}
+      transition={{ type: "linear" }}
       onSubmit={handleValid}
       required="Please write a Category"
       placeholder="New category"

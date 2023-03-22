@@ -1,8 +1,10 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import React, { useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { categoryState, newCategoryState, toDoSelector } from "../../atom";
 import Button from "../UI/Button";
+import MotionCategory from "./MotionCategory";
 
 const CategoryWrapper = styled.div``;
 const Title = styled.div`
@@ -25,12 +27,23 @@ const Title = styled.div`
     cursor: pointer;
   }
 `;
+const ButtonList = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 const CategoryList = styled.div`
   margin: 20px 15px;
   display: flex;
   > button.selected {
     background-color: ${(props) => props.theme.btnColor};
   }
+`;
+const CircleButton = styled(motion.div)`
+  height: 32px;
+  width: 32px;
+  background-color: ${(props) => props.theme.accentColor};
 `;
 
 function Category() {
@@ -71,18 +84,21 @@ function Category() {
         <button onClick={deleteCategory}>x</button>
       </Title>
       <hr />
-      <CategoryList>
-        {newCategory.map((newlist) => (
-          <Button
-            className={newlist === selectedCategory ? "selected" : ""}
-            key={newlist}
-            onClick={onClick}
-            value={newlist}
-          >
-            {newlist}
-          </Button>
-        ))}
-      </CategoryList>
+      <ButtonList>
+        <CategoryList>
+          {newCategory.map((newlist) => (
+            <Button
+              className={newlist === selectedCategory ? "selected" : ""}
+              key={newlist}
+              onClick={onClick}
+              value={newlist}
+            >
+              {newlist}
+            </Button>
+          ))}
+        </CategoryList>
+        <MotionCategory />
+      </ButtonList>
     </CategoryWrapper>
   );
 }
