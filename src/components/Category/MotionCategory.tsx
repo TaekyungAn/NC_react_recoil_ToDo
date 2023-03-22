@@ -5,7 +5,6 @@ import { openCategoryAtom } from "../../atom";
 import CreateCategory from "./CreateCategory";
 
 const MotionWrapper = styled(motion.div)`
-  display: flex;
   position: relative;
 `;
 const CircleButton = styled(motion.div)`
@@ -15,6 +14,7 @@ const CircleButton = styled(motion.div)`
 
   position: absolute;
   right: 15px;
+  bottom: 5px;
   height: 32px;
   width: 32px;
   border-radius: 50%;

@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
+import { motion } from "framer-motion";
 import { openCategoryAtom } from "../../atom";
 
 export interface IForm {
@@ -32,19 +33,6 @@ const CreateForm = styled.form`
     margin-bottom: 5px;
     margin-right: 5px;
   }
-  /* > button {
-    border: 0;
-    outline: 0;
-     box-shadow: -5px -5px 9px rgba(255, 255, 255, 0.45),
-      5px 5px 9px rgba(94, 104, 121, 0.3); 
-    background-color: white;
-
-    width: 50px;
-    height: 32px;
-    border-radius: 15px;
-
-    cursor: pointer;
-  } */
 `;
 
 function SubmitForm({ onSubmit, placeholder, required, animate }: ISubmitForm) {
@@ -58,7 +46,9 @@ function SubmitForm({ onSubmit, placeholder, required, animate }: ISubmitForm) {
   }, [onSubmit, setValue]);
   return (
     <CreateForm onSubmit={handleSubmit(onSubmit)}>
-      <input
+      <motion.input
+        animate={{ scaleX: openCategory ? 0 : 1 }}
+        transition={{ type: "linear" }}
         {...register("newStuff", {
           required: `${required}`,
         })}

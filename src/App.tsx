@@ -80,15 +80,6 @@ a{
 }
 `;
 
-const Middle = styled.div`
-  display: flex;
-  width: 70%;
-  height: 70%;
-  border-radius: 20px;
-
-  margin-bottom: 10px;
-`;
-
 const AppWrapper = styled.div`
   height: 100vh;
   width: 100vw;
@@ -96,6 +87,14 @@ const AppWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`;
+const Middle = styled.div`
+  display: flex;
+  width: 70%;
+  height: 70%;
+  border-radius: 20px;
+
+  margin-bottom: 10px;
 `;
 
 function App() {

@@ -52,7 +52,15 @@ const WeatherIcon = styled(motion.div)`
   }
 `;
 
-const ShortBox = styled.div``;
+const ShortBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  > span {
+    margin-bottom: 10px;
+  }
+`;
 const LongBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -120,26 +128,44 @@ const Weather = () => {
   };
 
   const getWeather = async () => {
+    // 아래처럼 했더니 날씨정보 안나옴
+    // const res = await axios(url);
+    // const main = res.data.main;
+    // const info = {
+    //   weather: res.data.weather[0].main,
+    //   icon: res.data.weather[0].icon,
+    //   temp: main.temp,
+    //   feels_like: main.feels_like,
+    //   temp_min: main.temp_min,
+    //   temp_max: main.temp_max,
+    //   name: res.data.name,
+    // };
+
+    // setCurrentWeather({
+    //   weather: { main: info.weather, icon },
+    //   main: {
+    //     temp,
+    //     feels_like,
+    //     temp_min: info.temp_min,
+    //     temp_max: info.temp_max,
+    //   },
+    //   name,
+    // });
     const res = await axios(url);
+    const weather = res.data.weather[0].main;
+    const icon = res.data.weather[0].icon;
+
     const main = res.data.main;
-    const info = {
-      weather: res.data.weather[0].main,
-      icon: res.data.weather[0].icon,
-      temp: main.temp,
-      feels_like: main.feels_like,
-      temp_min: main.temp_min,
-      temp_max: main.temp_max,
-      name: res.data.name,
-    };
+    const temp = main.temp;
+    const feels_like = main.feels_like;
+    const temp_min = main.temp_min;
+    const temp_max = main.temp_max;
+
+    const name = res.data.name;
 
     setCurrentWeather({
-      weather: { main: info.weather, icon },
-      main: {
-        temp,
-        feels_like,
-        temp_min: info.temp_min,
-        temp_max: info.temp_max,
-      },
+      weather: { main: weather, icon },
+      main: { temp, feels_like, temp_min, temp_max },
       name,
     });
     setIsLoading(false);
@@ -170,7 +196,7 @@ const Weather = () => {
   // Error: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type
 
   // useMediaQuery: https://usehooks-ts.com/react-hook/use-media-query
-  const isMoreInfo = useMediaQuery("(min-width:1500px)");
+  const isMoreInfo = useMediaQuery("(min-width:1200px)");
 
   return (
     <WeatherBox>
@@ -190,9 +216,8 @@ const Weather = () => {
             </LongBox>
           ) : (
             <ShortBox>
-              <span>
-                {name}, {temp}℃
-              </span>
+              <span>{name}</span>
+              <span>{temp}°</span>
             </ShortBox>
           )}
         </div>
