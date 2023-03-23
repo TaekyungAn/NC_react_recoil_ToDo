@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Toggle from "../UI/Toggle";
 
 const Box = styled.div`
-  min-width: 500px;
   width: 70%;
   height: 150px;
   border-radius: 20px;

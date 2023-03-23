@@ -23,6 +23,9 @@ const Box = styled.div`
   align-items: center;
 `;
 const ClockBox = styled.div`
+  @media (max-width: 1200px) {
+    font-size: 150%;
+  }
   font-size: 32px;
 `;
 

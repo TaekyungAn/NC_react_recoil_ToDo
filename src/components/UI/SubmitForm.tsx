@@ -9,13 +9,16 @@ export interface IForm {
   newStuff: string;
 }
 export interface ISubmitForm {
-  animate?: {
-    scaleX?: number;
-  };
-  transition?: {};
   placeholder: string;
   required: string;
   onSubmit: (string: IForm) => void;
+}
+export interface IAnimationForm {
+  animate?: {
+    scaleX?: number;
+  };
+  transition?: { type?: string };
+  style?: { transformOrigin?: string };
 }
 
 const CreateForm = styled.form`
@@ -35,9 +38,10 @@ const CreateForm = styled.form`
   }
 `;
 
-function SubmitForm({ onSubmit, placeholder, required, animate }: ISubmitForm) {
-  const openCategory = useRecoilValue(openCategoryAtom);
-
+function SubmitForm(
+  { onSubmit, placeholder, required }: ISubmitForm,
+  { animate, transition, style }: IAnimationForm
+) {
   const { register, handleSubmit, setValue } = useForm<IForm>();
   // 아래처럼 입력하면 경고: Too many re-renders. React limits the number of renders to prevent an infinite loop.
   // setValue("newStuff", "");
@@ -47,12 +51,13 @@ function SubmitForm({ onSubmit, placeholder, required, animate }: ISubmitForm) {
   return (
     <CreateForm onSubmit={handleSubmit(onSubmit)}>
       <motion.input
-        animate={{ scaleX: openCategory ? 0 : 1 }}
-        transition={{ type: "linear" }}
         {...register("newStuff", {
           required: `${required}`,
         })}
         placeholder={placeholder}
+        animate={animate}
+        transition={transition}
+        style={style}
       />
     </CreateForm>
   );

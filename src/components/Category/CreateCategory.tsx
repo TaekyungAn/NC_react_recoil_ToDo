@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { categoryState, newCategoryState } from "../../atom";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { categoryState, newCategoryState, openCategoryAtom } from "../../atom";
 import SubmitForm, { IForm } from "../UI/SubmitForm";
 
 function CreateCategory() {
   const { setValue } = useForm<IForm>();
   const setCurrentCategory = useSetRecoilState(categoryState);
   const [newCategory, setNewCategory] = useRecoilState(newCategoryState);
+  const openCategory = useRecoilValue(openCategoryAtom);
 
   const handleValid = ({ newStuff }: IForm) => {
     if (newStuff && newStuff.length > 0) {
@@ -23,8 +24,6 @@ function CreateCategory() {
   };
   return (
     <SubmitForm
-      animate={{ scaleX: 1 }}
-      transition={{ type: "linear" }}
       onSubmit={handleValid}
       required="Please write a Category"
       placeholder="New category"
