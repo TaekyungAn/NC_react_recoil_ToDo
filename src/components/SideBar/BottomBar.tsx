@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Toggle from "../UI/Toggle";
+import UnderlinedMenu from "./UnderlinedMenu";
 
 const Box = styled.div`
   width: 70%;
@@ -15,6 +16,7 @@ const Box = styled.div`
 function BottomBar() {
   return (
     <Box>
+      <UnderlinedMenu />
       <Toggle />
     </Box>
   );
