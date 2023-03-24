@@ -2,8 +2,9 @@ import { useState, ReactElement, useMemo } from "react";
 import styled from "styled-components";
 import React from "react";
 import Weather from "./Weather";
-import SideMenu from "./UnderlinedMenu";
-import UnderlinedMenu from "./UnderlinedMenu";
+import { Link, Route, Routes } from "react-router-dom";
+import Home from "../pages/Home";
+import Private from "../pages/Private";
 
 const Box = styled.div`
   width: 300px;

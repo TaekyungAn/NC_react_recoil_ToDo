@@ -1,4 +1,8 @@
+import { Route, Routes } from "react-router-dom";
 import styled from "styled-components";
+import Home from "../pages/Home";
+import Private from "../pages/Private";
+import Games from "../pages/Games";
 import ToDoList from "../ToDo/ToDoList";
 
 const MainStationWrapper = styled.div`
@@ -12,7 +16,12 @@ const MainStationWrapper = styled.div`
 function MainStation() {
   return (
     <MainStationWrapper>
-      <ToDoList />
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route path="/todolist" element={<ToDoList />} />
+        <Route path="/games" element={<Games />} />
+        <Route path="/mypage" element={<Private />} />
+      </Routes>
     </MainStationWrapper>
   );
 }

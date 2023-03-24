@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-const menuItems = ["Lorem", "ipsum", "dolor", "sit"];
+import { Link } from "react-router-dom";
+const menuItems = ["home", "todolist", "games", "mypage"];
 
 const Wrapper = styled.div`
   .underlined-menu {
@@ -61,12 +62,14 @@ const UnderlinedMenu = () => {
       <div className="underlined-menu">
         <div className="wrapper">
           {menuItems.map((el, i) => (
-            <MenuItem
-              text={el}
-              key={i}
-              selected={selected === i}
-              onClick={() => setSelected(i)}
-            />
+            <Link to={"/" + el}>
+              <MenuItem
+                text={el}
+                key={i}
+                selected={selected === i}
+                onClick={() => setSelected(i)}
+              />
+            </Link>
           ))}
         </div>
       </div>

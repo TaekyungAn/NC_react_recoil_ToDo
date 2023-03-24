@@ -6,8 +6,8 @@ import { ThemeProvider } from "styled-components";
 import { darkTheme, lightTheme } from "./theme";
 import { useRecoilValue } from "recoil";
 import { isDarkAtom } from "./atom";
-import Toggle from "./components/UI/Toggle";
 import MainStation from "./components/SideBar/MainStation";
+import Router from "./Router";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
