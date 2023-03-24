@@ -2,6 +2,7 @@ import { useState, ReactElement, useMemo } from "react";
 import styled from "styled-components";
 import React from "react";
 import Weather from "./Weather";
+import SideMenu from "./SideMenu";
 
 const Box = styled.div`
   width: 300px;
@@ -41,6 +42,7 @@ function LeftBar() {
   return (
     <Box>
       <Weather />
+      <SideMenu />
       <ClockBox>{showClock}</ClockBox>
     </Box>
   );
