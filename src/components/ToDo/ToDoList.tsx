@@ -3,7 +3,6 @@ import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { toDoSelector } from "../../atom";
 import Category from "../Category/Category";
-import CreateCategory from "../Category/CreateCategory";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
 const ToDoListWrapper = styled.div`
@@ -19,8 +18,8 @@ const ToDoListWrapper = styled.div`
   }
 `;
 
-const ButtonList = styled.div`
-  display: flex;
+const ToDoWrapper = styled.ul`
+  margin: 0 15px;
 `;
 
 function ToDoList() {
@@ -31,9 +30,11 @@ function ToDoList() {
       <div>
         <Category />
         <CreateToDo />
-        {toDos.map((toDo) => (
-          <ToDo key={toDo.id} {...toDo} />
-        ))}
+        <ToDoWrapper>
+          {toDos.map((toDo) => (
+            <ToDo key={toDo.id} {...toDo} />
+          ))}
+        </ToDoWrapper>
       </div>
     </ToDoListWrapper>
   );

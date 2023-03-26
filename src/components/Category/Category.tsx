@@ -1,8 +1,13 @@
 import { motion } from "framer-motion";
 import React, { useRef, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import { categoryState, newCategoryState, toDoSelector } from "../../atom";
+import {
+  categoryState,
+  newCategoryState,
+  toDoSelector,
+  toDoState,
+} from "../../atom";
 import Button from "../UI/Button";
 import MotionCategory from "./MotionCategory";
 
@@ -85,11 +90,12 @@ const CircleButton = styled(motion.div)`
 `;
 
 function Category() {
-  const btnRef = useRef<HTMLButtonElement>(null);
   const [defaultCategory, setDefaultCategory] = useRecoilState(categoryState);
   const [newCategory, setNewCategory] = useRecoilState(newCategoryState);
   const [selectedCategory, setSelectedCategory] = useState(newCategory[0]);
   const toDos = useRecoilValue(toDoSelector);
+  const setToDos = useSetRecoilState(toDoState);
+  const removedToDos = useRecoilValue(toDoState);
 
   // useEffect(() => {
   //   if (btnRef.current !== null) btnRef.current.focus();
@@ -107,6 +113,12 @@ function Category() {
       );
       setNewCategory(removedCategory);
       setDefaultCategory(removedCategory[0]);
+
+      // 해당 카테고리에 있는 리스트 전부 지워져야 함
+      // 같은 카테고리 제외한 나머지만 filter
+      setToDos((oldToDos) =>
+        oldToDos.filter((toDo) => toDo.category !== defaultCategory)
+      );
     }
   };
 
