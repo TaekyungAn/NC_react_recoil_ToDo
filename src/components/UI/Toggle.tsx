@@ -5,7 +5,11 @@ import styled from "styled-components";
 import { isDarkAtom } from "../../atom";
 import { BiSun, BiMoon } from "react-icons/bi";
 
-const ToggleBox = styled(motion.div)``;
+const ToggleBox = styled(motion.div)`
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+`;
 
 const Container = styled.div`
   height: 40px;

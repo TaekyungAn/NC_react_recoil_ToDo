@@ -5,26 +5,42 @@ import { Link } from "react-router-dom";
 const menuItems = ["home", "todolist", "games", "mypage"];
 
 const Wrapper = styled.div`
+  width: 100%;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  background-position: right center;
+  text-transform: uppercase;
+
+  background-image: ${(props) => props.theme.menuColor};
+  :hover {
+    background-position: left center;
+  }
+
   .underlined-menu {
-    height: 100%;
+    height: 70px;
     width: 100%;
     display: grid;
     place-items: center left;
     color: rgba($color: #171717, $alpha: 0.8);
-    background: #ffd11a;
     .wrapper {
+      width: 100%;
       display: flex;
       justify-content: space-evenly;
     }
     .menu-item {
-      margin: 0 1.5rem;
-      font-size: 3rem;
-      font-weight: 700;
-      cursor: pointer;
-      position: relative;
-      &:first-child {
-        margin-left: 3rem;
+      font-size: 2rem;
+
+      @media (min-width: 1300px) {
+        font-size: 3rem;
+        margin: 0 1.5rem;
+        &:first-child {
+          margin-left: 3rem;
+        }
       }
+      cursor: pointer;
+      font-weight: 700;
+      position: relative;
     }
     .underline {
       position: absolute;

@@ -8,6 +8,7 @@ export const darkTheme: DefaultTheme = {
   boxColor: "#200526",
   btnColor: "#414C92",
   barColor: "#280338",
+  menuColor: "linear-gradient(to right, #fbc2eb 0%, #a6c1ee 51%, #fbc2eb 100%)",
 
   bgGradient: {
     start: "#075B60",
@@ -25,6 +26,8 @@ export const lightTheme: DefaultTheme = {
   boxColor: "#F6FCFD",
   barColor: "#EEF9F6",
   btnColor: "#D5EBEC",
+  menuColor: "linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%)",
+
   bgGradient: {
     start: "#BFD3F9",
     end: "#DDE9BE",

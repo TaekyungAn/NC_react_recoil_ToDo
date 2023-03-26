@@ -11,6 +11,7 @@ declare module "styled-components" {
     boxColor?: string;
     btnColor?: string;
     barColor?: string;
+    menuColor?: string;
     colors?: {
       blueMain: string;
       blue100: string;

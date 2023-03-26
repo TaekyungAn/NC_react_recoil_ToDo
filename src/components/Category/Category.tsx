@@ -46,11 +46,6 @@ const CategoryList = styled.div`
     background-color: ${(props) => props.theme.btnColor};
   }
 
-  /*
-  ::-webkit-scrollbar {
-    display: none; /* 크롬, 사파리, 오페라, 엣지 
-  }
-  */
   overflow: auto;
   overflow-y: hidden;
 
@@ -123,15 +118,19 @@ function Category() {
             ? "카테고리를 생성해 주세요"
             : defaultCategory}
         </h2>
-        <span>({toDos.length})</span>
-        <button onClick={deleteCategory}>x</button>
+        {defaultCategory && <span>({toDos.length})</span>}
+        {defaultCategory && <button onClick={deleteCategory}>x</button>}
       </Title>
       <hr />
       <ButtonList>
         <CategoryList>
           {newCategory.map((newlist) => (
             <Button
-              className={newlist === selectedCategory ? "selected" : ""}
+              className={
+                newlist === selectedCategory || newlist === defaultCategory
+                  ? "selected"
+                  : ""
+              }
               key={newlist}
               onClick={onClick}
               value={newlist}
