@@ -48,6 +48,7 @@ export const toDoSelector = selector({
 export const isDarkAtom = atom({
   key: "isDark",
   default: true,
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const openCategoryAtom = atom({

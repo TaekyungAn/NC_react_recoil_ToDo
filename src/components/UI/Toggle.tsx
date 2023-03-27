@@ -1,6 +1,5 @@
 import { AnimatePresence, motion, Variants } from "framer-motion";
-import { useState } from "react";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { isDarkAtom } from "../../atom";
 import { BiSun, BiMoon } from "react-icons/bi";
@@ -67,31 +66,28 @@ const IconWrapper = styled(motion.div)`
 `;
 
 const Toggle = () => {
-  const setIsDark = useSetRecoilState(isDarkAtom);
-
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDark, setIsDark] = useRecoilState(isDarkAtom);
   const toggleClicked = () => {
-    setIsDark((prev) => !prev);
-    setIsDarkMode((prev) => !prev);
+    setIsDark((prev: any) => !prev);
   };
 
   return (
     <ToggleBox>
       <Container
-        className={isDarkMode ? "lightmode" : "nightmode"}
+        className={!isDark ? "lightmode" : "nightmode"}
         onClick={toggleClicked}
-        style={{ justifyContent: isDarkMode ? "flex-end" : "flex-start" }}
+        style={{ justifyContent: !isDark ? "flex-end" : "flex-start" }}
       >
         <Handle layout>
           <AnimatePresence initial={false}>
             <IconWrapper
-              key={isDarkMode ? "moon" : "sun"}
+              key={!isDark ? "moon" : "sun"}
               initial={{ y: -30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 30, opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              {isDarkMode ? <BiSun /> : <BiMoon />}
+              {!isDark ? <BiSun /> : <BiMoon />}
             </IconWrapper>
           </AnimatePresence>
         </Handle>
