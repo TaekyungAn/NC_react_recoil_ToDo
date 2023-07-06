@@ -8,8 +8,25 @@ import { isDarkAtom } from "./atom";
 import MainStation from "./components/SideBar/MainStation";
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
-font-family: 'Source Sans Pro', sans-serif;
+@font-face {
+    font-family: 'ChosunCentennial';
+    src: url(../fonts/ChosunCentennial/ChosunCentennial.eot);
+    src: url(../fonts/ChosunCentennial/ChosunCentennial.eot?#iefix) format('embedded-opentype'),
+         url(../fonts/ChosunCentennial/ChosunCentennial.woff) format('woff'),
+         url(../fonts/ChosunCentennial/ChosunCentennial.ttf) format('truetype');
+         unicode-range: U+AC00-D7A3;
+        }
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url(../fonts/OpenSans/OpenSans-Regular.eot);
+    src: url(../fonts/OpenSans/OpenSans-Regular.eot?#iefix) format('embedded-opentype'),
+         url(../fonts/OpenSans/OpenSans-Regular.woff) format('woff'),
+         url(../fonts/OpenSans/OpenSans-Regular.ttf) format('truetype');
+         unicode-range: U+26;
+}
+font-family: 'Alkatra', cursive;
+font-family: 'Gowun Dodum', sans-serif;
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -61,7 +78,7 @@ table {
   box-sizing: border-box;
 }
 body{
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: inherit;
   width: 100%;
   height: 100%;
   background-image: url(${(props) => props.theme.bgImg});

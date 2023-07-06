@@ -4,6 +4,7 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 import styled from "styled-components";
 import { motion, Variants } from "framer-motion";
 import { FontAwesome } from "../../assets/weatherIcon";
+import { IoMdRefreshCircle } from "react-icons/io";
 
 interface locationType {
   loaded: boolean;
@@ -71,6 +72,10 @@ const LongBox = styled.div`
   }
 `;
 
+const WeatherRefresh = styled(motion.div)`
+  cursor: pointer;
+`;
+
 const boxVariants: Variants = {
   start: { opacity: 0, scale: 0.5 },
   end: {
@@ -128,29 +133,6 @@ const Weather = () => {
   };
 
   const getWeather = async () => {
-    // 아래처럼 했더니 날씨정보 안나옴
-    // const res = await axios(url);
-    // const main = res.data.main;
-    // const info = {
-    //   weather: res.data.weather[0].main,
-    //   icon: res.data.weather[0].icon,
-    //   temp: main.temp,
-    //   feels_like: main.feels_like,
-    //   temp_min: main.temp_min,
-    //   temp_max: main.temp_max,
-    //   name: res.data.name,
-    // };
-
-    // setCurrentWeather({
-    //   weather: { main: info.weather, icon },
-    //   main: {
-    //     temp,
-    //     feels_like,
-    //     temp_min: info.temp_min,
-    //     temp_max: info.temp_max,
-    //   },
-    //   name,
-    // });
     const res = await axios(url);
     const weather = res.data.weather[0].main;
     const icon = res.data.weather[0].icon;
@@ -184,7 +166,9 @@ const Weather = () => {
     getWeather();
     console.log(location);
   }, []);
-
+  const refreshBtn = () => {
+    getWeather();
+  };
   // How to solve: Type 'undefined' is not assignable to type 'number'
   // https://bobbyhadz.com/blog/typescript-type-undefined-is-not-assignable-to-type
   const name = currentWeather.name;
@@ -204,9 +188,20 @@ const Weather = () => {
         <div>loading...</div>
       ) : (
         <div>
-          <WeatherIcon variants={boxVariants} initial="start" animate="end">
-            {FontAwesome[`${icon}`]}
-          </WeatherIcon>
+          <div>
+            <WeatherIcon variants={boxVariants} initial="start" animate="end">
+              {FontAwesome[`${icon}`]}
+            </WeatherIcon>
+            <WeatherRefresh
+              variants={boxVariants}
+              initial="start"
+              animate="end"
+              onClick={refreshBtn}
+            >
+              <IoMdRefreshCircle />
+            </WeatherRefresh>
+          </div>
+
           {isMoreInfo ? (
             <LongBox>
               <span>{main}</span>
